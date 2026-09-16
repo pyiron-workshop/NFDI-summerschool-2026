@@ -346,7 +346,10 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">From Tensile Test to Workflow: Determining the Young’s Modulus</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-materials-science-challenge">The materials science challenge</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-analysis-to-workflow">From analysis to workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-analysis-to-workflow">From analysis to workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#python-functions">Python Functions</a><ul class="visible nav section-nav flex-column">
@@ -373,17 +376,25 @@
 <section id="the-materials-science-challenge">
 <h2>The materials science challenge<a class="headerlink" href="#the-materials-science-challenge" title="Link to this heading">#</a></h2>
 <p>Determining the <strong>Young’s modulus</strong> — a material’s stiffness, i.e. how strongly it resists elastic deformation — is one of the most common tasks in materials testing. It is measured with a <strong>tensile test</strong>: a standardized specimen is clamped into a testing machine and pulled with a controlled force (the <em>load</em>) while an <em>extensometer</em> measures how much the specimen stretches (the <em>elongation</em>). Plotting the resulting <strong>stress</strong> against the <strong>strain</strong> gives the stress-strain curve; the slope of its initial, linear-elastic region is the Young’s modulus.</p>
-<p>The dataset used throughout these notebooks (<code class="docutils literal notranslate"><span class="pre">data/dataset_1.csv</span></code>) was recorded at the <strong>Bundesanstalt für Materialforschung und -prüfung (BAM)</strong> as part of the digitalization project <strong>Innovationsplattform MaterialDigital (PMD)</strong>. It contains the load (kN) and extensometer elongation (%) recorded over the course of the test. Note that the stress and strain derived from this data are <em>engineering</em> stress and strain — based on the specimen’s original cross-section and gauge length — rather than <em>true</em> stress and strain.</p>
+<p>The dataset used throughout these notebooks (<code class="docutils literal notranslate"><span class="pre">data/dataset_1.csv</span></code>) was recorded at the <strong><a class="reference external" href="https://zenodo.org/communities/bam">Bundesanstalt für Materialforschung und -prüfung (BAM)</a></strong> as part of the digitalization project <strong><a class="reference external" href="https://www.materialdigital.de/">Innovationsplattform MaterialDigital (PMD)</a></strong>. It contains the load (kN) and extensometer elongation (%) recorded over the course of the test. Note that the stress and strain derived from this data are <em>engineering</em> stress and strain — based on the specimen’s original cross-section and gauge length — rather than <em>true</em> stress and strain.</p>
+<p><img alt="tensite" src="_images/tensile.png" /></p>
 </section>
 <section id="from-analysis-to-workflow">
 <h2>From analysis to workflow<a class="headerlink" href="#from-analysis-to-workflow" title="Link to this heading">#</a></h2>
 <p>Turning an analysis like this into something reusable and shareable is exactly the problem that workflow management systems solve. Over the next three notebooks the same analysis is built three times, each with a different tool:</p>
 <ol class="arabic simple">
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">python.ipynb</span></code></strong> (this notebook) — plain Python: first a quick script, then reusable functions, then a proper Python module (<a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a>).</p></li>
-<li><p><strong><a class="reference internal" href="#pyiron_workflow.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow.ipynb</span></code></span></a></strong> — the same functions wrapped as nodes of a <a class="reference external" href="https://github.com/pyiron/pyiron_workflow"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code></a> graph, a workflow engine with an explicit, inspectable dependency graph.</p></li>
-<li><p><strong><a class="reference internal" href="#executorlib.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">executorlib.ipynb</span></code></span></a></strong> — the same functions executed with <a class="reference external" href="https://github.com/pyiron/executorlib"><code class="docutils literal notranslate"><span class="pre">executorlib</span></code></a>, a lightweight executor that follows Python’s <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code> interface and scales from a laptop to an HPC cluster.</p></li>
+<li><p><strong><a class="reference internal" href="#pyiron_workflow.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow.ipynb</span></code></span></a></strong> — the same functions wrapped as nodes of a <a class="reference external" href="https://pyiron-workflow.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code></a> graph, a workflow engine with an explicit, inspectable dependency graph.</p></li>
+<li><p><strong><a class="reference internal" href="#executorlib.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">executorlib.ipynb</span></code></span></a></strong> — the same functions executed with <a class="reference external" href="https://executorlib.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">executorlib</span></code></a>, a lightweight executor that follows Python’s <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code> interface and scales from a laptop to an HPC cluster.</p></li>
 </ol>
 <p>Both <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> and <code class="docutils literal notranslate"><span class="pre">executorlib</span></code> can import and export the same workflow graph using the <strong><a class="reference external" href="https://pythonworkflow.github.io/python-workflow-definition/">Python Workflow Definition</a></strong> — a minimal, engine-agnostic JSON format that describes a workflow as plain Python functions connected by edges. It is what lets a workflow built with one tool be loaded and executed by the other, and it is the reason <a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a> (introduced below) can be reused, unchanged, in all three notebooks.</p>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Schilling, M., Glaubitz, S., Matzak, K., Rehmer, B., &amp; Skrotzki, B. (2022). Full dataset of several mechanical tests on an S355 steel sheet as reference data for digital representations (1.0.0) [Data set]. Zenodo. <a class="reference external" href="https://doi.org/10.5281/zenodo.6778336">https://doi.org/10.5281/zenodo.6778336</a></p></li>
+<li><p>Janssen, J., Taylor, M. G., Yang, P., Neugebauer, J., &amp; Perez, D. (2025). Executorlib – Up-scaling Python workflows for hierarchical heterogenous high-performance computing. Journal of Open Source Software, 10(108), 7782. <a class="reference external" href="https://doi.org/10.21105/joss.07782">https://doi.org/10.21105/joss.07782</a></p></li>
+</ul>
+</section>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="python-functions">
@@ -652,7 +663,10 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">From Tensile Test to Workflow: Determining the Young’s Modulus</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-materials-science-challenge">The materials science challenge</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-analysis-to-workflow">From analysis to workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-analysis-to-workflow">From analysis to workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#python-functions">Python Functions</a><ul class="visible nav section-nav flex-column">

@@ -345,6 +345,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-editor">Visual Editor</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reload-workflow">Reload Workflow</a></li>
 </ul>
             </nav>
@@ -359,7 +360,8 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="pyironflow">
 <h1>pyironflow<a class="headerlink" href="#pyironflow" title="Link to this heading">#</a></h1>
-<p><a class="reference external" href="https://github.com/pyiron/pyiron_workflow"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code></a> turns plain Python functions into the <strong>nodes</strong> of an explicit, inspectable workflow graph. Instead of relying on the order in which notebook cells happen to be executed, you declare how data flows between nodes, and <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> figures out — and can cache — the rest. This notebook rebuilds the same <a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a> analysis from <a class="reference internal" href="#python.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">python.ipynb</span></code></span></a> — read CSV → convert load to stress/strain → fit Young’s modulus → plot — as a graph.</p>
+<p><a class="reference external" href="https://github.com/pyiron/pyironFlow"><code class="docutils literal notranslate"><span class="pre">pyironflow</span></code></a> is a visual programming environment for <a class="reference external" href="https://pyiron-workflow.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code></a>: it renders a workflow graph as boxes and wires in an interactive, drag-and-drop canvas, and lets you build, inspect and run one the same way, without writing the underlying Python. Where <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> itself is aimed at users who are comfortable declaring nodes and wiring them up in code, <code class="docutils literal notranslate"><span class="pre">pyironflow</span></code> puts a graphical user interface in front of that same graph, targeting domain scientists and other less technically experienced users who want to compose and run a workflow without programming.</p>
+<p>This notebook rebuilds the same <a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a> analysis from <a class="reference internal" href="#python.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">python.ipynb</span></code></span></a> — read CSV → convert load to stress/strain → fit Young’s modulus → plot — as a <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> graph, exactly as in <a class="reference internal" href="#pyiron_workflow.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow.ipynb</span></code></span></a>, and then hands that graph to <code class="docutils literal notranslate"><span class="pre">pyironflow</span></code> to show what the same workflow looks like, and can be operated, through the GUI.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">Future</span>
@@ -392,6 +394,7 @@
 <section id="workflow">
 <h2>Workflow<a class="headerlink" href="#workflow" title="Link to this heading">#</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Workflow</span></code> is a container for nodes. Assigning <code class="docutils literal notranslate"><span class="pre">wf.&lt;name&gt;</span> <span class="pre">=</span> <span class="pre">node(...)</span></code> both adds the node to the graph and wires its inputs — either to a plain value or to another node’s output, e.g. <code class="docutils literal notranslate"><span class="pre">wf.result_dict[&quot;stress&quot;]</span></code>. Execution is lazy: nothing actually runs until <code class="docutils literal notranslate"><span class="pre">wf.run()</span></code> is called, at which point <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> resolves the dependencies and executes the nodes in the right order.</p>
+<p>This is the one part of the notebook still written in code — normally the point of <code class="docutils literal notranslate"><span class="pre">pyironflow</span></code> is that a user builds exactly this graph by dragging nodes onto the canvas instead.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="s2">"my_workflow"</span><span class="p">)</span>
@@ -412,6 +415,10 @@
 </div>
 </div>
 </div>
+</section>
+<section id="visual-editor">
+<h2>Visual Editor<a class="headerlink" href="#visual-editor" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">PyironFlow(wf_list=[wf],</span> <span class="pre">root_path=&quot;.&quot;)</span></code> opens <code class="docutils literal notranslate"><span class="pre">wf</span></code> in the visual editor: each node becomes a box showing its inputs and outputs, connected by the same edges declared above, and <code class="docutils literal notranslate"><span class="pre">root_path</span></code> tells the editor where to look for workflow files to browse and load. From here the graph can be inspected, edited and re-run entirely by clicking and dragging — the same workflow, but without touching the code that built it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pf</span> <span class="o">=</span> <span class="n">PyironFlow</span><span class="p">(</span><span class="n">wf_list</span><span class="o">=</span><span class="p">[</span><span class="n">wf</span><span class="p">],</span> <span class="n">root_path</span><span class="o">=</span><span class="s2">"."</span><span class="p">)</span>
@@ -420,12 +427,13 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "d6da0e62f0fa4823a28fb086fae81ca4"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d6da0e62f0fa4823a28fb086fae81ca4", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p><img alt="image" src="_images/vp_constructed.png" /></p>
 </section>
 <section id="reload-workflow">
 <h2>Reload Workflow<a class="headerlink" href="#reload-workflow" title="Link to this heading">#</a></h2>
+<p>Opening <code class="docutils literal notranslate"><span class="pre">PyironFlow</span></code> with an empty <code class="docutils literal notranslate"><span class="pre">Workflow(&quot;workflow_reloaded&quot;)</span></code> shows the other side of the same idea: a user who has never seen <code class="docutils literal notranslate"><span class="pre">workflow.py</span></code> can still browse to a saved workflow file under <code class="docutils literal notranslate"><span class="pre">root_path</span></code> and load it into the canvas from the GUI alone, then inspect, rerun or adapt it — no Python required at any point.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pf</span> <span class="o">=</span> <span class="n">PyironFlow</span><span class="p">(</span><span class="n">wf_list</span><span class="o">=</span><span class="p">[</span><span class="n">Workflow</span><span class="p">(</span><span class="s2">"workflow_reloaded"</span><span class="p">)],</span> <span class="n">root_path</span><span class="o">=</span><span class="s2">"."</span><span class="p">)</span>
@@ -434,7 +442,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "288b05db5fe846e28e3c4d88ea0f042d"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "288b05db5fe846e28e3c4d88ea0f042d", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p><img alt="image" src="_images/vp_loading.png" /></p>
 </section>
@@ -499,6 +507,7 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-editor">Visual Editor</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reload-workflow">Reload Workflow</a></li>
 </ul>
   </nav></div>

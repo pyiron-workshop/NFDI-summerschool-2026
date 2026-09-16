@@ -344,11 +344,15 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asynchronous-programming">Asynchronous Programming</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-graph">Workflow Graph</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-performance-computing">High Performance Computing</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-workflow-definition">Python Workflow Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-workflow-definition">Python Workflow Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">References</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
             </nav>
@@ -363,7 +367,12 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="executorlib">
 <h1>executorlib<a class="headerlink" href="#executorlib" title="Link to this heading">#</a></h1>
-<p><a class="reference external" href="https://github.com/pyiron/executorlib"><code class="docutils literal notranslate"><span class="pre">executorlib</span></code></a> is a lightweight workflow engine built directly on Python’s standard <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code> interface: instead of a bespoke node/graph API, you <code class="docutils literal notranslate"><span class="pre">submit()</span></code> plain functions to an executor and get back <code class="docutils literal notranslate"><span class="pre">Future</span></code> objects, exactly as with <code class="docutils literal notranslate"><span class="pre">concurrent.futures.ThreadPoolExecutor</span></code> or <code class="docutils literal notranslate"><span class="pre">ProcessPoolExecutor</span></code>. The same executor interface scales from a single laptop core (<code class="docutils literal notranslate"><span class="pre">SingleNodeExecutor</span></code>) up to HPC clusters via Flux or SLURM, without changing the workflow code itself. This notebook rebuilds the same <a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a> analysis from <a class="reference internal" href="#python.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">python.ipynb</span></code></span></a> with <code class="docutils literal notranslate"><span class="pre">executorlib</span></code>.</p>
+<p><a class="reference external" href="https://executorlib.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">executorlib</span></code></a> is a lightweight workflow engine built directly on Python’s standard <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code> interface: instead of a bespoke node/graph API, you <code class="docutils literal notranslate"><span class="pre">submit()</span></code> plain functions to an executor and get back <code class="docutils literal notranslate"><span class="pre">Future</span></code> objects, exactly as with <code class="docutils literal notranslate"><span class="pre">concurrent.futures.ThreadPoolExecutor</span></code> or <code class="docutils literal notranslate"><span class="pre">ProcessPoolExecutor</span></code>. The same executor interface scales from a single laptop core (<code class="docutils literal notranslate"><span class="pre">SingleNodeExecutor</span></code>) up to HPC clusters via Flux or SLURM, without changing the workflow code itself. This notebook rebuilds the same <a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a> analysis from <a class="reference internal" href="#python.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">python.ipynb</span></code></span></a> with <code class="docutils literal notranslate"><span class="pre">executorlib</span></code>.</p>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Janssen, J., Taylor, M. G., Yang, P., Neugebauer, J., &amp; Perez, D. (2025). Executorlib – Up-scaling Python workflows for hierarchical heterogenous high-performance computing. Journal of Open Source Software, 10(108), 7782. <a class="reference external" href="https://doi.org/10.21105/joss.07782">https://doi.org/10.21105/joss.07782</a></p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">Future</span>
@@ -373,6 +382,7 @@
 </div>
 </div>
 </div>
+</section>
 <section id="asynchronous-programming">
 <h2>Asynchronous Programming<a class="headerlink" href="#asynchronous-programming" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">executorlib</span></code> builds on Python’s built-in <code class="docutils literal notranslate"><span class="pre">concurrent.futures.Future</span></code>: a placeholder for a result that may not be available yet. A <code class="docutils literal notranslate"><span class="pre">Future</span></code> starts “not done”; once a result is set, <code class="docutils literal notranslate"><span class="pre">done()</span></code> becomes <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">result()</span></code> returns the value. <code class="docutils literal notranslate"><span class="pre">executorlib</span></code>’s <code class="docutils literal notranslate"><span class="pre">submit()</span></code> returns exactly this kind of object, so any code that already understands <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code> immediately understands <code class="docutils literal notranslate"><span class="pre">executorlib</span></code>.</p>
@@ -492,11 +502,16 @@
 </section>
 <section id="high-performance-computing">
 <h2>High Performance Computing<a class="headerlink" href="#high-performance-computing" title="Link to this heading">#</a></h2>
-<p>Swapping <code class="docutils literal notranslate"><span class="pre">SingleNodeExecutor</span></code> for <code class="docutils literal notranslate"><span class="pre">FluxClusterExecutor</span></code> (or a SLURM equivalent) submits the exact same tasks as jobs to an HPC scheduler instead of running them locally — the workflow code itself does not change. The cell below is kept as a raw, non-executed cell, since running it requires a Flux cluster to submit to.</p>
+<p>Swapping <code class="docutils literal notranslate"><span class="pre">SingleNodeExecutor</span></code> for <code class="docutils literal notranslate"><span class="pre">SlurmClusterExecutor</span></code> (or a flux equivalent) submits the exact same tasks as jobs to an HPC scheduler instead of running them locally — the workflow code itself does not change. The cell below is kept as a raw, non-executed cell, since running it requires a SLURM cluster to submit to.</p>
 </section>
 <section id="python-workflow-definition">
 <h2>Python Workflow Definition<a class="headerlink" href="#python-workflow-definition" title="Link to this heading">#</a></h2>
 <p>As with <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code>, the submitted tasks can be exported to the engine-agnostic <a class="reference external" href="https://pythonworkflow.github.io/python-workflow-definition/">Python Workflow Definition</a> JSON format by passing <code class="docutils literal notranslate"><span class="pre">export_workflow_filename</span></code>, and reloaded with <code class="docutils literal notranslate"><span class="pre">load_workflow_json()</span></code>. Compare the <code class="docutils literal notranslate"><span class="pre">workflow.json</span></code> produced below to the one produced in <a class="reference internal" href="#pyiron_workflow.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow.ipynb</span></code></span></a>: both describe the same graph of plain functions from <a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a>, which is exactly what allows a workflow built with one engine to be executed by the other.</p>
+<section id="id1">
+<h3>References<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Janssen, J., George, J., Geiger, J., Bercx, M., Wang, X., Ertural, C., Schaarschmidt, J., Ganose, A. M., Pizzi, G., Hickel, T., &amp; Neugebauer, J. (2025). A Python workflow definition for computational materials design. Digital Discovery. <a class="reference external" href="https://doi.org/10.1039/d5dd00231a">https://doi.org/10.1039/d5dd00231a</a></p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">executorlib</span><span class="o">.</span><span class="n">SingleNodeExecutor</span><span class="p">(</span><span class="n">export_workflow_filename</span><span class="o">=</span><span class="s2">"workflow.json"</span><span class="p">)</span> <span class="k">as</span> <span class="n">exe</span><span class="p">:</span>
@@ -667,6 +682,7 @@
 </div>
 </div>
 </section>
+</section>
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
 <p>Across these three notebooks the same <a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a> functions were executed as a plain Python module, as a <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> graph, and as <code class="docutils literal notranslate"><span class="pre">executorlib</span></code> futures — first on a laptop and, in principle, on an HPC cluster. The <a class="reference external" href="https://pythonworkflow.github.io/python-workflow-definition/">Python Workflow Definition</a> is what ties them together: a single JSON description of a workflow that any compatible engine can read and execute.</p>
@@ -739,11 +755,15 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asynchronous-programming">Asynchronous Programming</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-graph">Workflow Graph</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-performance-computing">High Performance Computing</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-workflow-definition">Python Workflow Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-workflow-definition">Python Workflow Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">References</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
   </nav></div>
