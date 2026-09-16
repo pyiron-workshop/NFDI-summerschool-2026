@@ -1,0 +1,14 @@
+channels:
+- conda-forge
+dependencies:
+- python =3.12
+- executorlib =1.10.3
+- flux-core =0.88.0
+- h5py =3.16.0
+- matplotlib =3.11.1
+- networkx =3.6.1
+- pygraphviz =2.0.1
+- pyiron_workflow =0.17.0
+- pyironflow =0.0.24
+- pysqa =1.0.0
+- python-workflow-definition =0.1.5

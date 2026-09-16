@@ -1,0 +1,116 @@
+{
+    "version": "0.1.0",
+    "nodes": [
+        {
+            "id": 0,
+            "type": "function",
+            "value": "workflow.read_csv"
+        },
+        {
+            "id": 1,
+            "type": "function",
+            "value": "workflow.convert_load_to_stress"
+        },
+        {
+            "id": 2,
+            "type": "function",
+            "value": "workflow.calculate_youngs_modulus"
+        },
+        {
+            "id": 3,
+            "type": "function",
+            "value": "workflow.plot"
+        },
+        {
+            "id": 4,
+            "type": "input",
+            "value": "./data/dataset_1.csv",
+            "name": "filename"
+        },
+        {
+            "id": 5,
+            "type": "input",
+            "value": 120,
+            "name": "area"
+        },
+        {
+            "id": 6,
+            "type": "input",
+            "value": 0.2,
+            "name": "strain_cutoff"
+        },
+        {
+            "id": 7,
+            "type": "input",
+            "value": "-",
+            "name": "format"
+        },
+        {
+            "id": 8,
+            "type": "output",
+            "name": "result"
+        }
+    ],
+    "edges": [
+        {
+            "target": 0,
+            "targetPort": "filename",
+            "source": 4,
+            "sourcePort": null
+        },
+        {
+            "target": 1,
+            "targetPort": "df",
+            "source": 0,
+            "sourcePort": null
+        },
+        {
+            "target": 1,
+            "targetPort": "area",
+            "source": 5,
+            "sourcePort": null
+        },
+        {
+            "target": 2,
+            "targetPort": "stress",
+            "source": 1,
+            "sourcePort": "0"
+        },
+        {
+            "target": 2,
+            "targetPort": "strain",
+            "source": 1,
+            "sourcePort": "1"
+        },
+        {
+            "target": 2,
+            "targetPort": "strain_cutoff",
+            "source": 6,
+            "sourcePort": null
+        },
+        {
+            "target": 3,
+            "targetPort": "stress",
+            "source": 1,
+            "sourcePort": "0"
+        },
+        {
+            "target": 3,
+            "targetPort": "strain",
+            "source": 1,
+            "sourcePort": "1"
+        },
+        {
+            "target": 3,
+            "targetPort": "format",
+            "source": 7,
+            "sourcePort": null
+        },
+        {
+            "target": 8,
+            "targetPort": null,
+            "source": 3,
+            "sourcePort": null
+        }
+    ]
+}

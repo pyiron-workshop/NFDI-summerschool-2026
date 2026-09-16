@@ -1,0 +1,6 @@
+format: jb-book
+root: README
+chapters:
+- file: 0-python.ipynb
+- file: 1-executorlib.ipynb
+- file: 2-pyiron_workflow.ipynb

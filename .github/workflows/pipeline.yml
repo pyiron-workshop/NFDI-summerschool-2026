@@ -1,0 +1,28 @@
+name: Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  notebooks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Miniforge
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniforge-version: latest
+          channels: conda-forge
+          conda-remove-defaults: "true"
+          environment-file: environment.yml
+      - name: Notebooks
+        shell: bash -l {0}
+        timeout-minutes: 15
+        env:
+          MPLBACKEND: Agg
+        run: |
+          papermill python.ipynb python-out.ipynb -k python3
+          papermill pyiron_workflow.ipynb pyiron_workflow-out.ipynb -k python3
+          papermill executorlib.ipynb executorlib-out.ipynb -k python3
