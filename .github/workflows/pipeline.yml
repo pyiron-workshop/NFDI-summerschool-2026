@@ -23,6 +23,7 @@ jobs:
         env:
           MPLBACKEND: Agg
         run: |
+          conda install -y papermill jupyter
           papermill python.ipynb python-out.ipynb -k python3
           papermill pyiron_workflow.ipynb pyiron_workflow-out.ipynb -k python3
           papermill executorlib.ipynb executorlib-out.ipynb -k python3
