@@ -344,12 +344,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-graph">Workflow Graph</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-workflow-definition">Python Workflow Definition</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">References</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
@@ -367,11 +366,6 @@
   <section class="tex2jax_ignore mathjax_ignore" id="pyiron-workflow">
 <h1>pyiron_workflow<a class="headerlink" href="#pyiron-workflow" title="Link to this heading">#</a></h1>
 <p><a class="reference external" href="https://pyiron-workflow.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code></a> turns plain Python functions into the <strong>nodes</strong> of an explicit, inspectable workflow graph. Instead of relying on the order in which notebook cells happen to be executed, you declare how data flows between nodes, and <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> figures out — and can cache — the rest. This notebook rebuilds the same <a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a> analysis from <a class="reference internal" href="#python.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">python.ipynb</span></code></span></a> — read CSV → convert load to stress/strain → fit Young’s modulus → plot — as a graph.</p>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Huber, L., &amp; Neugebauer, J. (2024). From concept to compute: accelerating research with workflow management in <code class="docutils literal notranslate"><span class="pre">pyiron</span></code>. Proceedings of the Python in Science Conference (SciPy 2024). <a class="reference external" href="https://doi.org/10.25080/xwwj3999">https://doi.org/10.25080/xwwj3999</a></p></li>
-</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">Future</span>
@@ -386,7 +380,6 @@
 </div>
 </div>
 </div>
-</section>
 <section id="nodes">
 <h2>Nodes<a class="headerlink" href="#nodes" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">to_function_node</span></code> wraps an existing Python function — unchanged — into a <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> node. Each of the function’s arguments becomes a node input, and its return value(s) become node output(s); nothing about <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>, <code class="docutils literal notranslate"><span class="pre">convert_load_to_stress</span></code>, <code class="docutils literal notranslate"><span class="pre">calculate_youngs_modulus</span></code> or <code class="docutils literal notranslate"><span class="pre">plot</span></code> themselves had to change to make this work.</p>
@@ -456,8 +449,8 @@
 <section id="python-workflow-definition">
 <h2>Python Workflow Definition<a class="headerlink" href="#python-workflow-definition" title="Link to this heading">#</a></h2>
 <p>The <a class="reference external" href="https://pythonworkflow.github.io/python-workflow-definition/">Python Workflow Definition</a> is a minimal, engine-agnostic JSON schema for workflow graphs: nodes reference plain Python functions by their import path, and edges describe how outputs connect to inputs. <code class="docutils literal notranslate"><span class="pre">write_workflow_json()</span></code> exports the <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> graph above into this format; <code class="docutils literal notranslate"><span class="pre">load_workflow_json()</span></code> reads it back into a fresh <code class="docutils literal notranslate"><span class="pre">Workflow</span></code>. Because the format only relies on plain functions and JSON, the exact same <code class="docutils literal notranslate"><span class="pre">workflow.json</span></code> can also be loaded by a completely different engine — see <a class="reference internal" href="#executorlib.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">executorlib.ipynb</span></code></span></a>.</p>
-<section id="id1">
-<h3>References<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Janssen, J., George, J., Geiger, J., Bercx, M., Wang, X., Ertural, C., Schaarschmidt, J., Ganose, A. M., Pizzi, G., Hickel, T., &amp; Neugebauer, J. (2025). A Python workflow definition for computational materials design. Digital Discovery. <a class="reference external" href="https://doi.org/10.1039/d5dd00231a">https://doi.org/10.1039/d5dd00231a</a></p></li>
 </ul>
@@ -665,7 +658,7 @@
 </section>
 <section id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
-<p>Continue with <a class="reference internal" href="#executorlib.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">executorlib.ipynb</span></code></span></a> to execute this same workflow — including the <code class="docutils literal notranslate"><span class="pre">workflow.json</span></code> exported above — with a lightweight, HPC-ready executor instead of a graph engine.</p>
+<p>Continue with <a class="reference internal" href="#executorlib.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">executorlib.ipynb</span></code></span></a> to execute this same workflow — including the <code class="docutils literal notranslate"><span class="pre">workflow.json</span></code> exported above — with a lightweight, HPC-ready executor instead of a graph engine, or see <a class="reference internal" href="#pyironflow.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">pyironflow.ipynb</span></code></span></a> to build and run this same <code class="docutils literal notranslate"><span class="pre">wf</span></code> graph through a graphical, drag-and-drop interface instead of code.</p>
 </section>
 </section>
 
@@ -735,12 +728,11 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-graph">Workflow Graph</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-workflow-definition">Python Workflow Definition</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">References</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
