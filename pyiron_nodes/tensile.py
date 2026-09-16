@@ -10,7 +10,7 @@ def read_csv(filename: str, header: list = [0, 1], decimal: str = ",", delimiter
 
 
 @as_function_node("stress", "strain")
-def convert_load_to_stress(df, area):
+def convert_load_to_stress(df, area: float):
     """
     Read in csv file, convert load to stress
     """
@@ -26,7 +26,7 @@ def convert_load_to_stress(df, area):
 
 
 @as_function_node("youngs_modulus")
-def calculate_youngs_modulus(stress, strain, strain_cutoff=0.2):
+def calculate_youngs_modulus(stress, strain, strain_cutoff: float = 0.2):
     percent_to_fraction = 100  # convert
     MPa_to_GPa = 1 / 1000  # convert MPa to GPa
     arg = np.argsort(np.abs(np.array(strain) - strain_cutoff))[0]
