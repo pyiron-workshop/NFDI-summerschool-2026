@@ -10,5 +10,5 @@ dependencies:
 - pyiron_workflow =0.17.0
 - pyironflow =0.0.24
 - python-workflow-definition =0.1.5
-- grace-tensorpotential =0.5.1
+- grace-tensorpotential
 - assyst =0.12.0
