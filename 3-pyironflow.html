@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pyiron_workflow &#8212; NFDI Matwerk Summer School</title>
+    <title>pyironflow &#8212; NFDI Matwerk Summer School</title>
   
   
   
@@ -60,11 +60,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '2-pyiron_workflow';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '3-pyironflow';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pyironflow" href="3-pyironflow.html" />
-    <link rel="prev" title="executorlib" href="1-executorlib.html" />
+    <link rel="prev" title="pyiron_workflow" href="2-pyiron_workflow.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -166,8 +165,8 @@
 <li class="toctree-l1"><a class="reference internal" href="0-python.html">From Tensile Test to Workflow: Determining the Young’s Modulus</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="1-executorlib.html">executorlib</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">pyiron_workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3-pyironflow.html">pyironflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2-pyiron_workflow.html">pyiron_workflow</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">pyironflow</a></li>
 </ul>
 
     </div>
@@ -227,7 +226,7 @@
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/pyiron-workshop/NFDI-summerschool-2026/master?urlpath=lab/tree/2-pyiron_workflow.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/pyiron-workshop/NFDI-summerschool-2026/master?urlpath=lab/tree/3-pyironflow.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -258,7 +257,7 @@
       
       
       
-      <li><a href="_sources/2-pyiron_workflow.ipynb" target="_blank"
+      <li><a href="_sources/3-pyironflow.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -334,7 +333,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>pyiron_workflow</h1>
+    <h1>pyironflow</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -346,9 +345,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-graph">Workflow Graph</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-workflow-definition">Python Workflow Definition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reload-workflow">Reload Workflow</a></li>
 </ul>
             </nav>
         </div>
@@ -360,13 +357,14 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="pyiron-workflow">
-<h1>pyiron_workflow<a class="headerlink" href="#pyiron-workflow" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="pyironflow">
+<h1>pyironflow<a class="headerlink" href="#pyironflow" title="Link to this heading">#</a></h1>
 <p><a class="reference external" href="https://github.com/pyiron/pyiron_workflow"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code></a> turns plain Python functions into the <strong>nodes</strong> of an explicit, inspectable workflow graph. Instead of relying on the order in which notebook cells happen to be executed, you declare how data flows between nodes, and <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> figures out — and can cache — the rest. This notebook rebuilds the same <a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a> analysis from <a class="reference internal" href="#python.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">python.ipynb</span></code></span></a> — read CSV → convert load to stress/strain → fit Young’s modulus → plot — as a graph.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">Future</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyiron_workflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">to_function_node</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyironflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">PyironFlow</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">workflow</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">read_csv</span> <span class="k">as</span> <span class="n">_read_csv</span><span class="p">,</span> 
     <span class="n">calculate_youngs_modulus</span> <span class="k">as</span> <span class="n">_calculate_youngs_modulus</span><span class="p">,</span> 
@@ -416,240 +414,29 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pf</span> <span class="o">=</span> <span class="n">PyironFlow</span><span class="p">(</span><span class="n">wf_list</span><span class="o">=</span><span class="p">[</span><span class="n">wf</span><span class="p">],</span> <span class="n">root_path</span><span class="o">=</span><span class="s2">"."</span><span class="p">)</span>
+<span class="n">pf</span><span class="o">.</span><span class="n">gui</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'youngs_modulus__calculate_youngs_modulus': np.float64(175.1800847629701),
- 'plot__plot': &lt;Figure size 640x480 with 1 Axes&gt;}
-</pre></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "d6da0e62f0fa4823a28fb086fae81ca4"}</script></div>
 </div>
-<img alt="_images/1558b04a4d9fe764fc80b1d40762c6bec03304621a9e9b2cd83b16765291f654.png" src="_images/1558b04a4d9fe764fc80b1d40762c6bec03304621a9e9b2cd83b16765291f654.png" />
-</div>
-</div>
+<p><img alt="image" src="_images/vp_constructed.png" /></p>
 </section>
-<section id="workflow-graph">
-<h2>Workflow Graph<a class="headerlink" href="#workflow-graph" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">wf.draw()</span></code> renders the same graph visually. Because the graph structure and the Python code are two views of the same underlying object, this is what lets domain scientists and workflow developers collaborate on the same workflow — one thinking in code, the other in the diagram.</p>
+<section id="reload-workflow">
+<h2>Reload Workflow<a class="headerlink" href="#reload-workflow" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pf</span> <span class="o">=</span> <span class="n">PyironFlow</span><span class="p">(</span><span class="n">wf_list</span><span class="o">=</span><span class="p">[</span><span class="n">Workflow</span><span class="p">(</span><span class="s2">"workflow_reloaded"</span><span class="p">)],</span> <span class="n">root_path</span><span class="o">=</span><span class="s2">"."</span><span class="p">)</span>
+<span class="n">pf</span><span class="o">.</span><span class="n">gui</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2e0ca587bb70c0d3f3d0dc617d2738841656bc28252fd703a7d952b2b91968b7.svg" src="_images/2e0ca587bb70c0d3f3d0dc617d2738841656bc28252fd703a7d952b2b91968b7.svg" />
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "288b05db5fe846e28e3c4d88ea0f042d"}</script></div>
 </div>
-</div>
-</section>
-<section id="python-workflow-definition">
-<h2>Python Workflow Definition<a class="headerlink" href="#python-workflow-definition" title="Link to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://pythonworkflow.github.io/python-workflow-definition/">Python Workflow Definition</a> is a minimal, engine-agnostic JSON schema for workflow graphs: nodes reference plain Python functions by their import path, and edges describe how outputs connect to inputs. <code class="docutils literal notranslate"><span class="pre">write_workflow_json()</span></code> exports the <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> graph above into this format; <code class="docutils literal notranslate"><span class="pre">load_workflow_json()</span></code> reads it back into a fresh <code class="docutils literal notranslate"><span class="pre">Workflow</span></code>. Because the format only relies on plain functions and JSON, the exact same <code class="docutils literal notranslate"><span class="pre">workflow.json</span></code> can also be loaded by a completely different engine — see <a class="reference internal" href="#executorlib.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">executorlib.ipynb</span></code></span></a>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">python_workflow_definition.pyiron_workflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">write_workflow_json</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="s2">"my_workflow"</span><span class="p">)</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="mi">120</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">strain_cutoff</span> <span class="o">=</span> <span class="mf">0.2</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="s2">"./data/dataset_1.csv"</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">wf</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">result_dict</span> <span class="o">=</span> <span class="n">convert_load_to_stress</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">wf</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="n">wf</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">youngs_modulus</span> <span class="o">=</span> <span class="n">calculate_youngs_modulus</span><span class="p">(</span><span class="n">stress</span><span class="o">=</span><span class="n">wf</span><span class="o">.</span><span class="n">result_dict</span><span class="p">[</span><span class="s2">"stress"</span><span class="p">],</span> <span class="n">strain</span><span class="o">=</span><span class="n">wf</span><span class="o">.</span><span class="n">result_dict</span><span class="p">[</span><span class="s2">"strain"</span><span class="p">],</span> <span class="n">strain_cutoff</span><span class="o">=</span><span class="n">wf</span><span class="o">.</span><span class="n">strain_cutoff</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">write_workflow_json</span><span class="p">(</span><span class="n">graph_as_dict</span><span class="o">=</span><span class="n">wf</span><span class="o">.</span><span class="n">graph_as_dict</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s2">"workflow.json"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat<span class="w"> </span>workflow.json
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
-  "version": "0.1.0",
-  "nodes": [
-    {
-      "id": 0,
-      "type": "function",
-      "value": "workflow.read_csv"
-    },
-    {
-      "id": 1,
-      "type": "function",
-      "value": "workflow.convert_load_to_stress"
-    },
-    {
-      "id": 2,
-      "type": "function",
-      "value": "workflow.calculate_youngs_modulus"
-    },
-    {
-      "id": 3,
-      "type": "input",
-      "name": "filename",
-      "value": "./data/dataset_1.csv"
-    },
-    {
-      "id": 4,
-      "type": "input",
-      "name": "header",
-      "value": [
-        0,
-        1
-      ]
-    },
-    {
-      "id": 5,
-      "type": "input",
-      "name": "decimal",
-      "value": ","
-    },
-    {
-      "id": 6,
-      "type": "input",
-      "name": "delimiter",
-      "value": ";"
-    },
-    {
-      "id": 7,
-      "type": "input",
-      "name": "area",
-      "value": 120
-    },
-    {
-      "id": 8,
-      "type": "input",
-      "name": "strain_cutoff",
-      "value": 0.2
-    },
-    {
-      "id": 9,
-      "type": "output",
-      "name": "result"
-    }
-  ],
-  "edges": [
-    {
-      "target": 2,
-      "targetPort": "strain",
-      "source": 1,
-      "sourcePort": "strain"
-    },
-    {
-      "target": 2,
-      "targetPort": "stress",
-      "source": 1,
-      "sourcePort": "stress"
-    },
-    {
-      "target": 1,
-      "targetPort": "df",
-      "source": 0,
-      "sourcePort": null
-    },
-    {
-      "target": 0,
-      "targetPort": "filename",
-      "source": 3,
-      "sourcePort": null
-    },
-    {
-      "target": 0,
-      "targetPort": "header",
-      "source": 4,
-      "sourcePort": null
-    },
-    {
-      "target": 0,
-      "targetPort": "decimal",
-      "source": 5,
-      "sourcePort": null
-    },
-    {
-      "target": 0,
-      "targetPort": "delimiter",
-      "source": 6,
-      "sourcePort": null
-    },
-    {
-      "target": 1,
-      "targetPort": "area",
-      "source": 7,
-      "sourcePort": null
-    },
-    {
-      "target": 2,
-      "targetPort": "strain_cutoff",
-      "source": 8,
-      "sourcePort": null
-    },
-    {
-      "target": 9,
-      "targetPort": null,
-      "source": 2,
-      "sourcePort": null
-    }
-  ]
-}
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">python_workflow_definition.pyiron_workflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_workflow_json</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span> <span class="o">=</span> <span class="n">load_workflow_json</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="s2">"workflow.json"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/d3a2d69c10f3aff97dd8e322c1491cba452611cfb0c839e0555e2e446df4d765.svg" src="_images/d3a2d69c10f3aff97dd8e322c1491cba452611cfb0c839e0555e2e446df4d765.svg" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'calculate_youngs_modulus__calculate_youngs_modulus': np.float64(175.1800847629701)}
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="next-steps">
-<h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
-<p>Continue with <a class="reference internal" href="#executorlib.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">executorlib.ipynb</span></code></span></a> to execute this same workflow — including the <code class="docutils literal notranslate"><span class="pre">workflow.json</span></code> exported above — with a lightweight, HPC-ready executor instead of a graph engine.</p>
+<p><img alt="image" src="_images/vp_loading.png" /></p>
 </section>
 </section>
 
@@ -684,22 +471,13 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="1-executorlib.html"
+       href="2-pyiron_workflow.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">executorlib</p>
+        <p class="prev-next-title">pyiron_workflow</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="3-pyironflow.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">pyironflow</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -721,9 +499,7 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-graph">Workflow Graph</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-workflow-definition">Python Workflow Definition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reload-workflow">Reload Workflow</a></li>
 </ul>
   </nav></div>
 
