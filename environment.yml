@@ -10,3 +10,5 @@ dependencies:
 - pyiron_workflow =0.17.0
 - pyironflow =0.0.24
 - python-workflow-definition =0.1.5
+- ase =3.28.0
+- structuretoolkit =0.0.45
