@@ -95,7 +95,7 @@ def RelaxLoop(
     mode: Literal["volume", "full"],
     opt,
     df_structures: pd.DataFrame,
-    engine: OutputEngine = None,
+    engine: OutputEngine | None = None,
     store: bool = False,
 ) -> pd.DataFrame:
     """
