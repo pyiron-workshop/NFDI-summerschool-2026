@@ -95,7 +95,7 @@ def RelaxLoop(
     mode: Literal["volume", "full"],
     opt,
     df_structures: pd.DataFrame,
-    engine: OutputEngine | None= None,
+    engine: OutputEngine | None = None,
     store: bool = False,
 ) -> pd.DataFrame:
     """
@@ -143,7 +143,7 @@ def RelaxLoop(
     spg_numbers = []
 
     for structure in tqdm(structures, desc=f"Relax {mode.value}"):
-        relaxed_st = Relax(mode, opt, structure, engine).run()
+        relaxed_st = Relax(mode.value, opt, structure, engine).run()
         relaxed_structures.append(relaxed_st)
         spg_numbers.append(get_symmetry(relaxed_st).info["number"])
 
