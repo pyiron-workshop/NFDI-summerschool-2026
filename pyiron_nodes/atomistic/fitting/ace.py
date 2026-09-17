@@ -388,8 +388,10 @@ def PredictEnergiesAndForces(
     training_predict = _get_predicted_energies_forces(
         ace=ace, structures=training_structures
     )
+    # Extract total energy from predictions (handle both scalar and array returns)
+    training_energies_pred = np.array([np.sum(e) if np.ndim(e) > 0 else e for e in training_predict[0]])
     data_dict["predicted_training_epa"] = (
-        np.array(training_predict[0]) / training_number_of_atoms
+        training_energies_pred / training_number_of_atoms
     )
     data_dict["predicted_training_fpa"] = np.concatenate(training_predict[1]).flatten()
 
@@ -405,16 +407,18 @@ def PredictEnergiesAndForces(
         data_dict["reference_testing_fpa"] = testing_fpa
 
         testing_predict = _get_predicted_energies_forces(
-            ace=ace, structures=testing_structures, data_type='testing')
+            ace=ace, structures=testing_structures, data_type='testing'
+        )
+        # Extract total energy from predictions (handle both scalar and array returns)
+        testing_energies_pred = np.array([np.sum(e) if np.ndim(e) > 0 else e for e in testing_predict[0]])
         data_dict["predicted_testing_epa"] = (
-            np.array(testing_predict[0]) / testing_number_of_atoms
+            testing_energies_pred / testing_number_of_atoms
         )
         data_dict["predicted_testing_fpa"] = np.concatenate(
             testing_predict[1]
         ).flatten()
 
     return data_dict
-
 
 def _get_predicted_energies_forces(ace, structures, data_type: str = 'training'):
     """
