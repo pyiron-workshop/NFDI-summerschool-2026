@@ -115,7 +115,7 @@ def PlotEnergyFittingCurve(data_dict: dict):
         data_dict["reference_training_epa"].min(),
         data_dict["reference_training_epa"].max(),
     ]
-    ax.plot(lims, lims, ls="--", color="C0")
+    
 
     # Optional testing set
     if "reference_testing_epa" in data_dict and "predicted_testing_epa" in data_dict:
@@ -142,6 +142,7 @@ def PlotEnergyFittingCurve(data_dict: dict):
         s=30,
         label=f"Training RMSE = {rmse_training:.2f} (meV/atom)",
     )
+    ax.plot(lims, lims, ls="--", color="black")
 
     # Labels and title
     ax.set_xlabel("DFT E (eV/atom)")
@@ -179,7 +180,7 @@ def PlotForcesFittingCurve(data_dict: dict):
         data_dict["reference_training_fpa"].min(),
         data_dict["reference_training_fpa"].max(),
     ]
-    ax.plot(lims, lims, ls="--", color="C1")
+    
 
     # Optional testing set
     if "reference_testing_fpa" in data_dict and "predicted_testing_fpa" in data_dict:
@@ -206,6 +207,7 @@ def PlotForcesFittingCurve(data_dict: dict):
         s=30,
         label=f"Training RMSE = {rmse_training:.2f}" + r" (meV/$\AA$)",
     )
+    ax.plot(lims, lims, ls="--", color="black")
 
     # Labels and title
     ax.set_xlabel(r"DFT $F_i$ (eV/$\AA$)")
