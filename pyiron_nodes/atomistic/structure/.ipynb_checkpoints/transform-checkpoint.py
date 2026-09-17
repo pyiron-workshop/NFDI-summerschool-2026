@@ -130,7 +130,7 @@ def RattleLoop(
     df_structures: pd.DataFrame,
     sigma: float = 0.25,
     samples: int = 4,
-    engine: OutputEngine = None,
+    engine: OutputEngine | None = None,
     store: bool = False,
 ) -> pd.DataFrame:
     """
@@ -259,7 +259,7 @@ def StretchLoop(
     shear: float = 0.2,
     samples: int = 4,
     hydro_shear_ratio: float = 0.7,
-    engine: OutputEngine = None,
+    engine: OutputEngine | None = None,
     store: bool = False,
 ) -> pd.DataFrame:
     """
