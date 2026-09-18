@@ -28,3 +28,5 @@ jobs:
           papermill 1-executorlib.ipynb 1-executorlib-out.ipynb -k python3
           papermill 2-pyiron_workflow.ipynb 2-pyiron_workflow-out.ipynb -k python3
           papermill 3-pyironflow.ipynb 3-pyironflow-out.ipynb -k python3
+          papermill 4-assyst.ipynb 4-assyst-out.ipynb -k python3
+          papermill 5-fitting.ipynb 5-fitting-out.ipynb -k python3
