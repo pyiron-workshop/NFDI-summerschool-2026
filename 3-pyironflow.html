@@ -435,38 +435,13 @@
 <p><code class="docutils literal notranslate"><span class="pre">PyironFlow(wf_list=[wf],</span> <span class="pre">root_path=&quot;.&quot;)</span></code> opens <code class="docutils literal notranslate"><span class="pre">wf</span></code> in the visual editor: each node becomes a box showing its inputs and outputs, connected by the same edges declared above, and <code class="docutils literal notranslate"><span class="pre">root_path</span></code> tells the editor where to look for workflow files to browse and load. From here the graph can be inspected, edited and re-run entirely by clicking and dragging — the same workflow, but without touching the code that built it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>conda<span class="w"> </span>list<span class="w"> </span>pyironflow
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING conda.gateways.disk.delete:unlink_or_rename_to_trash(184): Could not remove or rename /cmmc/ptmp/pyironhb/mambaforge/envs/pyiron_mpie_cmti_2026-09-14/conda-meta/pyironflow-0.0.24-pyhee61e0b_0.json.  Please remove this file manually (you may need to reboot to free file handles)
-# packages in environment at /cmmc/ptmp/pyironhb/mambaforge/envs/pyiron_mpie_cmti_2026-09-14:
-#
-# Name                     Version          Build            Channel
-pyironflow                 0.1.0            pypi_0           pypi
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pf</span> <span class="o">=</span> <span class="n">PyironFlow</span><span class="p">(</span><span class="n">wf_list</span><span class="o">=</span><span class="p">[</span><span class="n">wf</span><span class="p">],</span> <span class="n">root_path</span><span class="o">=</span><span class="s2">"."</span><span class="p">)</span>
 <span class="n">pf</span><span class="o">.</span><span class="n">gui</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">pf</span> <span class="o">=</span> <span class="n">PyironFlow</span><span class="p">(</span><span class="n">wf_list</span><span class="o">=</span><span class="p">[</span><span class="n">wf</span><span class="p">],</span> <span class="n">root_path</span><span class="o">=</span><span class="s2">"."</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">pf</span><span class="o">.</span><span class="n">gui</span>
-
-<span class="ne">TypeError</span>: PyironFlow.__init__() got an unexpected keyword argument 'root_path'
-</pre></div>
-</div>
-</div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "bc5d8049e9ba48dbb956553318ed59be"}</script></div>
 </div>
 <p><img alt="image" src="_images/vp_constructed.png" /></p>
 <p><strong>Reproducibility question:</strong> The canvas shows the same boxes and wires as <code class="docutils literal notranslate"><span class="pre">wf.draw()</span></code> in <a class="reference internal" href="#pyiron_workflow.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow.ipynb</span></code></span></a> — the same workflow, in a different interface. If a domain scientist built this exact workflow purely by dragging and connecting boxes, without ever seeing <code class="docutils literal notranslate"><span class="pre">workflow.py</span></code>, would they know which underlying Python functions are actually being called?</p>
@@ -482,7 +457,7 @@ pyironflow                 0.1.0            pypi_0           pypi
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "288b05db5fe846e28e3c4d88ea0f042d", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "69c5c521c4e247b0857db3b813816460"}</script></div>
 </div>
 <p><img alt="image" src="_images/vp_loading.png" /></p>
 <section id="what-happens-when-a-node-fails">
