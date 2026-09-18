@@ -1,6 +1,6 @@
 # NFDI Matwerk Summer School 2026
 [![Pipeline](https://github.com/pyiron-workshop/NFDI-summerschool-2026/actions/workflows/pipeline.yml/badge.svg)](https://github.com/pyiron-workshop/NFDI-summerschool-2026/actions/workflows/pipeline.yml)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pyiron-workshop/NFDI-summerschool-2026/HEAD)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://notebooks.mpcdf.mpg.de/binder/v2/gl/pyiron%2FNFDI-summerschool-2026/HEAD)
 
 Turn a scientific analysis into an explicit, reproducible and scalable workflow — from a plain Python script to a FAIR, HPC-ready workflow graph, using [pyiron](https://pyiron.org) as the example implementation.
 
