@@ -169,6 +169,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3-pyironflow.html">pyironflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4-assyst.html">Application: ASSYST Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5-fitting.html">Application: Fit MLIP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SUMMARY.html">Summary</a></li>
 </ul>
 
     </div>
@@ -350,6 +351,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-graph">Workflow Graph</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-workflow-definition">Python Workflow Definition</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-one-analysis-to-a-parameter-study">From one analysis to a parameter study</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
@@ -366,7 +368,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="pyiron-workflow">
 <h1>pyiron_workflow<a class="headerlink" href="#pyiron-workflow" title="Link to this heading">#</a></h1>
-<p><a class="reference external" href="https://pyiron-workflow.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code></a> turns plain Python functions into the <strong>nodes</strong> of an explicit, inspectable workflow graph. Instead of relying on the order in which notebook cells happen to be executed, you declare how data flows between nodes, and <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> figures out — and can cache — the rest. This notebook rebuilds the same <a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a> analysis from <a class="reference internal" href="#python.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">python.ipynb</span></code></span></a> — read CSV → convert load to stress/strain → fit Young’s modulus → plot — as a graph.</p>
+<p><a class="reference external" href="https://pyiron-workflow.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code></a> turns plain Python functions into the <strong>nodes</strong> of an explicit, inspectable workflow graph: Python function → workflow node → connected nodes → workflow. Instead of relying on the order in which notebook cells happen to be executed, you declare how data flows between nodes, and <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> figures out — and can cache — the rest. This notebook rebuilds the same <a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a> analysis from <a class="reference internal" href="#python.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">python.ipynb</span></code></span></a> — read CSV → convert load to stress/strain → fit Young’s modulus → plot — as a graph.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">Future</span>
@@ -383,7 +385,7 @@
 </div>
 <section id="nodes">
 <h2>Nodes<a class="headerlink" href="#nodes" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">to_function_node</span></code> wraps an existing Python function — unchanged — into a <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> node. Each of the function’s arguments becomes a node input, and its return value(s) become node output(s); nothing about <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>, <code class="docutils literal notranslate"><span class="pre">convert_load_to_stress</span></code>, <code class="docutils literal notranslate"><span class="pre">calculate_youngs_modulus</span></code> or <code class="docutils literal notranslate"><span class="pre">plot</span></code> themselves had to change to make this work.</p>
+<p>A function already has most of what a workflow node needs: it takes inputs, performs a defined operation, and produces outputs. <code class="docutils literal notranslate"><span class="pre">to_function_node</span></code> makes that structure explicit by wrapping an existing Python function — unchanged — into a <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> node: each of the function’s arguments becomes a node input, and its return value(s) become node output(s). Nothing about <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>, <code class="docutils literal notranslate"><span class="pre">convert_load_to_stress</span></code>, <code class="docutils literal notranslate"><span class="pre">calculate_youngs_modulus</span></code> or <code class="docutils literal notranslate"><span class="pre">plot</span></code> themselves had to change to make this work — connecting nodes like these into a graph is what turns a collection of functions into a <strong>workflow</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">read_csv</span> <span class="o">=</span> <span class="n">to_function_node</span><span class="p">(</span><span class="s2">"read_csv"</span><span class="p">,</span> <span class="n">_read_csv</span><span class="p">,</span> <span class="s2">"read_csv"</span><span class="p">)</span>
@@ -394,6 +396,36 @@
 </div>
 </div>
 </div>
+<p><strong>What did we gain?</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Python function</p></th>
+<th class="head"><p>Workflow node</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>arguments</p></td>
+<td><p>explicit input channels</p></td>
+</tr>
+<tr class="row-odd"><td><p>return values</p></td>
+<td><p>explicit output channels</p></td>
+</tr>
+<tr class="row-even"><td><p>a function call</p></td>
+<td><p>a dependency</p></td>
+</tr>
+<tr class="row-odd"><td><p>execution order in code</p></td>
+<td><p>an explicit dependency graph</p></td>
+</tr>
+<tr class="row-even"><td><p>local execution</p></td>
+<td><p>managed, cacheable execution</p></td>
+</tr>
+<tr class="row-odd"><td><p>an implicit procedure</p></td>
+<td><p>an inspectable workflow</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>None of <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>, <code class="docutils literal notranslate"><span class="pre">convert_load_to_stress</span></code>, <code class="docutils literal notranslate"><span class="pre">calculate_youngs_modulus</span></code> or <code class="docutils literal notranslate"><span class="pre">plot</span></code> had to change — <code class="docutils literal notranslate"><span class="pre">to_function_node</span></code> only adds this extra structure around them.</p>
 </section>
 <section id="workflow">
 <h2>Workflow<a class="headerlink" href="#workflow" title="Link to this heading">#</a></h2>
@@ -446,10 +478,19 @@
 <img alt="_images/2e0ca587bb70c0d3f3d0dc617d2738841656bc28252fd703a7d952b2b91968b7.svg" src="_images/2e0ca587bb70c0d3f3d0dc617d2738841656bc28252fd703a7d952b2b91968b7.svg" />
 </div>
 </div>
+<p><strong>Reproducibility question:</strong> The diagram above shows exactly which inputs feed into <code class="docutils literal notranslate"><span class="pre">youngs_modulus</span></code> — including <code class="docutils literal notranslate"><span class="pre">strain_cutoff</span></code>. Could a collaborator who only sees this diagram, not the code above, tell you which analysis choices went into the result?</p>
 </section>
 <section id="python-workflow-definition">
 <h2>Python Workflow Definition<a class="headerlink" href="#python-workflow-definition" title="Link to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://pythonworkflow.github.io/python-workflow-definition/">Python Workflow Definition</a> is a minimal, engine-agnostic JSON schema for workflow graphs: nodes reference plain Python functions by their import path, and edges describe how outputs connect to inputs. <code class="docutils literal notranslate"><span class="pre">write_workflow_json()</span></code> exports the <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> graph above into this format; <code class="docutils literal notranslate"><span class="pre">load_workflow_json()</span></code> reads it back into a fresh <code class="docutils literal notranslate"><span class="pre">Workflow</span></code>. Because the format only relies on plain functions and JSON, the exact same <code class="docutils literal notranslate"><span class="pre">workflow.json</span></code> can also be loaded by a completely different engine — see <a class="reference internal" href="#executorlib.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">executorlib.ipynb</span></code></span></a>.</p>
+<p>Saving a workflow is different from saving its result. A result might tell you that <code class="docutils literal notranslate"><span class="pre">youngs_modulus</span> <span class="pre">≈</span> <span class="pre">175</span> <span class="pre">GPa</span></code>; the workflow additionally records <em>how</em> that number was obtained — which functions were called, with which parameters, in which order. The <a class="reference external" href="https://pythonworkflow.github.io/python-workflow-definition/">Python Workflow Definition</a> is a minimal, engine-agnostic JSON schema for exactly this: nodes reference plain Python functions by their import path, and edges describe how outputs connect to inputs. <code class="docutils literal notranslate"><span class="pre">write_workflow_json()</span></code> exports the <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> graph above into this format; <code class="docutils literal notranslate"><span class="pre">load_workflow_json()</span></code> reads it back into a fresh <code class="docutils literal notranslate"><span class="pre">Workflow</span></code>. Because the format only relies on plain functions and JSON, the exact same <code class="docutils literal notranslate"><span class="pre">workflow.json</span></code> can also be loaded by a completely different engine — see <a class="reference internal" href="#executorlib.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">executorlib.ipynb</span></code></span></a>.</p>
+<p>This connects directly to the FAIR principles for research data:</p>
+<ul class="simple">
+<li><p><strong>Findable</strong> — the workflow, like the data it produced, can be given an identifier and metadata.</p></li>
+<li><p><strong>Accessible</strong> — a JSON file can be stored, versioned and shared like any other research artefact.</p></li>
+<li><p><strong>Interoperable</strong> — a standardized, engine-agnostic description reduces the dependence of the workflow on any one piece of software.</p></li>
+<li><p><strong>Reusable</strong> — explicit inputs, functions and edges let another researcher understand, rerun and adapt the analysis.</p></li>
+</ul>
+<p>A workflow is not automatically FAIR simply because it was built with <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> — the JSON file below still needs to be shared, described and versioned alongside the data it operates on. But it is what makes the <em>procedure</em>, not only the <em>result</em>, something that can be findable, accessible, interoperable and reused.</p>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -656,6 +697,13 @@
 </div>
 </div>
 </section>
+<section id="from-one-analysis-to-a-parameter-study">
+<h3>From one analysis to a parameter study<a class="headerlink" href="#from-one-analysis-to-a-parameter-study" title="Link to this heading">#</a></h3>
+<div class="admonition note" name="html-admonition" style="background: #FFEDD1; padding: 10px">
+<p class="title"><b>Task</b></p>
+<p>Re-run <code>wf</code> for a few different values of <code>strain_cutoff</code> (e.g. <code>0.1</code>, <code>0.2</code>, <code>0.3</code>) by setting <code>wf.strain_cutoff = …</code> and calling <code>wf.run()</code> again, collecting the resulting <code>youngs_modulus</code> each time. Plot the Young’s modulus against <code>strain_cutoff</code>.</p>
+<p>How sensitive is the result to this analysis choice? Note that this is still a single workflow definition, evaluated several times with different inputs — a parameter study is a natural consequence of having an explicit, reusable workflow, not something that requires a different tool.</p>
+</div></section>
 </section>
 <section id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -734,6 +782,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-graph">Workflow Graph</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-workflow-definition">Python Workflow Definition</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-one-analysis-to-a-parameter-study">From one analysis to a parameter study</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>

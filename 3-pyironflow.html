@@ -172,6 +172,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">pyironflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4-assyst.html">Application: ASSYST Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5-fitting.html">Application: Fit MLIP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SUMMARY.html">Summary</a></li>
 </ul>
 
     </div>
@@ -351,8 +352,15 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-editor">Visual Editor</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reload-workflow">Reload Workflow</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reload-workflow">Reload Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happens-when-a-node-fails">What happens when a node fails?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-should-take-away">What you should take away</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-to-your-research">Transfer to your research</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -461,6 +469,7 @@ pyironflow                 0.1.0            pypi_0           pypi
 </div>
 </div>
 <p><img alt="image" src="_images/vp_constructed.png" /></p>
+<p><strong>Reproducibility question:</strong> The canvas shows the same boxes and wires as <code class="docutils literal notranslate"><span class="pre">wf.draw()</span></code> in <a class="reference internal" href="#pyiron_workflow.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow.ipynb</span></code></span></a> — the same workflow, in a different interface. If a domain scientist built this exact workflow purely by dragging and connecting boxes, without ever seeing <code class="docutils literal notranslate"><span class="pre">workflow.py</span></code>, would they know which underlying Python functions are actually being called?</p>
 </section>
 <section id="reload-workflow">
 <h2>Reload Workflow<a class="headerlink" href="#reload-workflow" title="Link to this heading">#</a></h2>
@@ -476,10 +485,47 @@ pyironflow                 0.1.0            pypi_0           pypi
 <script type="application/vnd.jupyter.widget-view+json">{"model_id": "288b05db5fe846e28e3c4d88ea0f042d", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p><img alt="image" src="_images/vp_loading.png" /></p>
+<section id="what-happens-when-a-node-fails">
+<h3>What happens when a node fails?<a class="headerlink" href="#what-happens-when-a-node-fails" title="Link to this heading">#</a></h3>
+<div class="admonition note" name="html-admonition" style="background: #FFEDD1; padding: 10px">
+<p class="title"><b>Task</b></p>
+<p>In the visual editor, change the <code class="docutils literal notranslate"><span class="pre">filename</span></code> input of the <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> node to a file that does not exist, then run the workflow.</p>
+<ul class="simple">
+<li><p>Which node fails?</p></li>
+<li><p>Which downstream nodes — <code class="docutils literal notranslate"><span class="pre">convert_load_to_stress</span></code>, <code class="docutils literal notranslate"><span class="pre">calculate_youngs_modulus</span></code>, <code class="docutils literal notranslate"><span class="pre">plot</span></code> — could not execute as a result?</p></li>
+<li><p>If you fix the filename and re-run, does the workflow need to repeat every step, or only the ones affected by the failure?</p></li>
+</ul>
+<p>You do not need a sophisticated recovery mechanism to answer these questions — the point is that an explicit, cached dependency graph already tells you exactly what broke and what is still safe to reuse, which a linear script does not.</p>
+</div></section>
 </section>
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
-<p>This is the same <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> graph built in <a class="reference internal" href="#pyiron_workflow.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow.ipynb</span></code></span></a>, now composed, inspected and reloaded entirely through <code class="docutils literal notranslate"><span class="pre">pyironflow</span></code>’s graphical canvas — no Python required. See <a class="reference internal" href="#python.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">python.ipynb</span></code></span></a> for where the underlying <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>, <code class="docutils literal notranslate"><span class="pre">convert_load_to_stress</span></code>, <code class="docutils literal notranslate"><span class="pre">calculate_youngs_modulus</span></code> and <code class="docutils literal notranslate"><span class="pre">plot</span></code> functions come from, or <a class="reference internal" href="#executorlib.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">executorlib.ipynb</span></code></span></a> for the same functions scaled up with a lightweight, HPC-ready executor.</p>
+<section id="what-you-should-take-away">
+<h3>What you should take away<a class="headerlink" href="#what-you-should-take-away" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Scientific results are produced by procedures, not by individual software commands.</p></li>
+<li><p><strong>Functions</strong> make individual scientific operations reusable.</p></li>
+<li><p><strong>Workflows</strong> make the dependencies between these operations explicit.</p></li>
+<li><p><strong>Workflow engines</strong> — whether driven from code, like <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code>, or visually, like <code class="docutils literal notranslate"><span class="pre">pyironflow</span></code> — help build, execute, inspect and scale these procedures.</p></li>
+<li><p><strong>Provenance</strong>, captured as an explicit workflow rather than left implicit in a notebook, is what makes a result reproducible and FAIR.</p></li>
+<li><p><strong>Interoperable workflow descriptions</strong>, such as the Python Workflow Definition, reduce how much a result depends on any one piece of software.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> and <code class="docutils literal notranslate"><span class="pre">pyironflow</span></code> are one implementation of these ideas for materials science. See <a class="reference internal" href="#python.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">python.ipynb</span></code></span></a> for where the underlying <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>, <code class="docutils literal notranslate"><span class="pre">convert_load_to_stress</span></code>, <code class="docutils literal notranslate"><span class="pre">calculate_youngs_modulus</span></code> and <code class="docutils literal notranslate"><span class="pre">plot</span></code> functions come from, or <a class="reference internal" href="#executorlib.ipynb"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">executorlib.ipynb</span></code></span></a> for the same functions scaled up with a lightweight, HPC-ready executor.</p>
+</section>
+<section id="transfer-to-your-research">
+<h3>Transfer to your research<a class="headerlink" href="#transfer-to-your-research" title="Link to this heading">#</a></h3>
+<div class="admonition note" name="html-admonition" style="background: #FFEDD1; padding: 10px">
+<p class="title"><b>Task</b></p>
+<p>Think of a procedure from your own research — an experiment, a simulation, a data-analysis pipeline — and write down 4–8 individual steps, for example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Prepare sample → Measure → Calibrate → Remove outliers → Fit model → Extract property
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Create structure → Relax structure → Run calculation → Extract energy → Fit equation of state → Calculate bulk modulus
+</pre></div>
+</div>
+<p>For each step, mark its <strong>inputs</strong>, <strong>outputs</strong>, <strong>parameters</strong> and the <strong>software</strong> it depends on, and draw the dependencies between steps as arrows. That diagram is already a workflow graph — the same kind of object you have been building with <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> and <code class="docutils literal notranslate"><span class="pre">pyironflow</span></code> throughout this tutorial.</p>
+</div></section>
 </section>
 </section>
 
@@ -552,8 +598,15 @@ pyironflow                 0.1.0            pypi_0           pypi
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-editor">Visual Editor</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reload-workflow">Reload Workflow</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reload-workflow">Reload Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happens-when-a-node-fails">What happens when a node fails?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-should-take-away">What you should take away</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-to-your-research">Transfer to your research</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

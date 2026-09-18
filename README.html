@@ -172,6 +172,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3-pyironflow.html">pyironflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4-assyst.html">Application: ASSYST Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5-fitting.html">Application: Fit MLIP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SUMMARY.html">Summary</a></li>
 </ul>
 
     </div>
@@ -294,7 +295,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -310,6 +313,20 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-tutorial">Why this tutorial?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-notebook-should-i-look-at">Which notebook should I look at?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-contribution">Support &amp; Contribution</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -321,8 +338,163 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="nfdi-matwerk-summer-school-2026">
 <h1>NFDI Matwerk Summer School 2026<a class="headerlink" href="#nfdi-matwerk-summer-school-2026" title="Link to this heading">#</a></h1>
-<p>Read more about the <a class="reference external" href="https://www.eusmat.net/research/other-events/nfdi-matwerk-summer-school-2026/">NFDI-MatWerk Summer School 2026 in Bochum – Research Data Management in Materials Science and Engineering</a></p>
-<p><a class="reference external" href="https://mybinder.org/v2/gh/pyiron-workshop/NFDI-summerschool-2026/HEAD"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a></p>
+<p><a class="reference external" href="https://github.com/pyiron-workshop/NFDI-summerschool-2026/actions/workflows/pipeline.yml"><img alt="Pipeline" src="https://github.com/pyiron-workshop/NFDI-summerschool-2026/actions/workflows/pipeline.yml/badge.svg" /></a>
+<a class="reference external" href="https://mybinder.org/v2/gh/pyiron-workshop/NFDI-summerschool-2026/HEAD"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a></p>
+<p>Turn a scientific analysis into an explicit, reproducible and scalable workflow — from a plain Python script to a FAIR, HPC-ready workflow graph, using <a class="reference external" href="https://pyiron.org">pyiron</a> as the example implementation.</p>
+<p>📖 Read the tutorial online at <strong><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026">workshop.pyiron.org/NFDI-summerschool-2026</a></strong>, or launch it interactively with the Binder badge above. This material was developed for the <a class="reference external" href="https://www.eusmat.net/research/other-events/nfdi-matwerk-summer-school-2026/">NFDI-MatWerk Summer School 2026 in Bochum – Research Data Management in Materials Science and Engineering</a>.</p>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Turn a Python script into an explicit, reusable workflow.</strong> Starting from plain functions, the tutorial builds the same analysis as a <a class="reference external" href="https://pyiron-workflow.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code></a> node graph, with inputs, outputs and dependencies you can inspect, cache and rerun — instead of an implicit sequence of notebook cells.</p></li>
+<li><p><strong>Build and run the same workflow with code or with a mouse.</strong> <a class="reference external" href="https://github.com/pyiron/pyironFlow"><code class="docutils literal notranslate"><span class="pre">pyironflow</span></code></a> puts that same workflow graph behind a drag-and-drop canvas, so it can be composed, inspected and executed with or without writing Python.</p></li>
+<li><p><strong>Scale from a laptop to an HPC cluster without rewriting anything.</strong> <a class="reference external" href="https://executorlib.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">executorlib</span></code></a> runs the same functions through a <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code>-compatible executor, locally for development and on SLURM or flux for production — the workflow code itself does not change.</p></li>
+<li><p><strong>Save a workflow, not just its result.</strong> Every workflow graph is exported to the engine-agnostic <a class="reference external" href="https://pythonworkflow.github.io/python-workflow-definition/">Python Workflow Definition</a> — the basis for interoperable, FAIR and reproducible research workflows.</p></li>
+<li><p><strong>See it applied to a real research pipeline.</strong> The same node/graph pattern is used to generate machine-learning-potential training data with the <a class="reference external" href="https://www.nature.com/articles/s41524-025-01669-4">ASSYST</a> method, and to fit and validate an <a class="reference external" href="https://doi.org/10.1103/PhysRevB.99.014104">Atomic Cluster Expansion</a> interatomic potential on the result.</p></li>
+</ul>
+</section>
+<section id="why-this-tutorial">
+<h2>Why this tutorial?<a class="headerlink" href="#why-this-tutorial" title="Link to this heading">#</a></h2>
+<p>A typical materials-science analysis has several steps: data are recorded or generated, processed, analysed and finally visualized — often by hand, spread across notebooks, scripts and software packages. Reproducing the result then requires not just the final data, but also knowledge of the exact sequence of operations that produced it.</p>
+<p>This tutorial uses one running example throughout — determining the <strong>Young’s modulus</strong> of a steel specimen from a tensile test, using a real dataset recorded at the <a class="reference external" href="https://bam.de">Bundesanstalt für Materialforschung und -prüfung (BAM)</a> — and builds the <em>same</em> four-step analysis (read data → convert to stress/strain → fit → plot) four times, with a different tool each time, so that one concept can be isolated at a time: functions, an explicit workflow graph, a visual editor, and an HPC-ready executor. The last two notebooks apply that same thinking to a genuine research pipeline: generating training data and fitting a machine-learning interatomic potential.</p>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<p>The core idea used throughout the tutorial: an existing Python function is wrapped, unchanged, into a workflow node, and nodes are connected into a graph with explicit inputs and outputs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyiron_workflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">to_function_node</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+
+<span class="n">add_node</span> <span class="o">=</span> <span class="n">to_function_node</span><span class="p">(</span><span class="s2">"add"</span><span class="p">,</span> <span class="n">add</span><span class="p">,</span> <span class="s2">"add"</span><span class="p">)</span>
+
+<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="s2">"demo"</span><span class="p">)</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">add_node</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The same graph can be built by dragging and connecting boxes in <a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/3-pyironflow.html"><code class="docutils literal notranslate"><span class="pre">pyironflow</span></code></a>’s visual canvas, executed locally or on an HPC cluster with <a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/1-executorlib.html"><code class="docutils literal notranslate"><span class="pre">executorlib</span></code></a>, and saved as a <a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/2-pyiron_workflow.html#python-workflow-definition">Python Workflow Definition</a> that any compatible engine can read back.</p>
+</section>
+<section id="which-notebook-should-i-look-at">
+<h2>Which notebook should I look at?<a class="headerlink" href="#which-notebook-should-i-look-at" title="Link to this heading">#</a></h2>
+<p>The notebooks share one <a class="reference download internal" download="" href="_downloads/baca13d4a0c6879c3926c4c71f475a99/workflow.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">workflow.py</span></code></span></a> module and one dataset, and are best read in order — but each one also stands on its own if you already know what you are looking for:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Notebook</p></th>
+<th class="head"><p>Covers</p></th>
+<th class="head"><p>Best for</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/0-python.html"><code class="docutils literal notranslate"><span class="pre">0-python.ipynb</span></code></a></p></td>
+<td><p>Script → functions → module</p></td>
+<td><p>starting point; only needs <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/1-executorlib.html"><code class="docutils literal notranslate"><span class="pre">1-executorlib.ipynb</span></code></a></p></td>
+<td><p>Functions as <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code>; implicit dependency graph; scaling to SLURM/flux</p></td>
+<td><p>scaling the same functions from a laptop to an HPC cluster</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/2-pyiron_workflow.html"><code class="docutils literal notranslate"><span class="pre">2-pyiron_workflow.ipynb</span></code></a></p></td>
+<td><p>Functions as nodes; explicit, inspectable dependency graph; PWD export &amp; FAIR</p></td>
+<td><p>users comfortable in Python who want an explicit, cacheable workflow</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/3-pyironflow.html"><code class="docutils literal notranslate"><span class="pre">3-pyironflow.ipynb</span></code></a></p></td>
+<td><p>The same graph via a drag-and-drop canvas</p></td>
+<td><p>users who would rather compose and run a workflow visually</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/4-assyst.html"><code class="docutils literal notranslate"><span class="pre">4-assyst.ipynb</span></code></a></p></td>
+<td><p>Applying nodes and graphs to generate structures for MLIP training data</p></td>
+<td><p>domain scientists interested in atomistic simulation</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/5-fitting.html"><code class="docutils literal notranslate"><span class="pre">5-fitting.ipynb</span></code></a></p></td>
+<td><p>Fitting and validating an ACE potential from that data</p></td>
+<td><p>closing the loop from data generation to a validated model</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/SUMMARY.html"><code class="docutils literal notranslate"><span class="pre">SUMMARY.md</span></code></a></p></td>
+<td><p>Recap of the concepts and takeaways across all notebooks</p></td>
+<td><p>wrap-up, and applying the same thinking to your own research</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/0-python.html">Introduction</a></p>
+<ul>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/0-python.html#the-materials-science-challenge">The materials science challenge</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/0-python.html#from-analysis-to-workflow">From analysis to workflow</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/0-python.html#learning-objectives">Learning objectives</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/0-python.html#python-functions">Python Functions</a></p>
+<ul>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/0-python.html#script">Script</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/0-python.html#functions">Functions</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/0-python.html#module">Module</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/1-executorlib.html">executorlib</a></p>
+<ul>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/1-executorlib.html#asynchronous-programming">Asynchronous Programming</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/1-executorlib.html#workflow">Workflow</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/1-executorlib.html#workflow-graph">Workflow Graph</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/1-executorlib.html#high-performance-computing">High Performance Computing</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/1-executorlib.html#python-workflow-definition">Python Workflow Definition</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/2-pyiron_workflow.html">pyiron_workflow</a></p>
+<ul>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/2-pyiron_workflow.html#nodes">Nodes</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/2-pyiron_workflow.html#workflow">Workflow</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/2-pyiron_workflow.html#workflow-graph">Workflow Graph</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/2-pyiron_workflow.html#python-workflow-definition">Python Workflow Definition</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/3-pyironflow.html">pyironflow</a></p>
+<ul>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/3-pyironflow.html#nodes">Nodes</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/3-pyironflow.html#workflow">Workflow</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/3-pyironflow.html#visual-editor">Visual Editor</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/3-pyironflow.html#reload-workflow">Reload Workflow</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/4-assyst.html">Application: ASSYST Method</a></p>
+<ul>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/4-assyst.html#background">Background</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/4-assyst.html#spacegroup-sampling">Spacegroup Sampling</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/4-assyst.html#full-workflow-for-a-small-structure-set">Full Workflow for a Small Structure Set</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/4-assyst.html#precomputed-full-workflow-with-large-structure-set">Precomputed Full Workflow with Large Structure Set</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/5-fitting.html">Application: Fit MLIP</a></p>
+<ul>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/5-fitting.html#loading-and-analyzing-the-dataset">Loading and Analyzing the dataset</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/5-fitting.html#split-the-dataset-into-training-and-test">Split the dataset into training and test</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/5-fitting.html#define-and-specify-the-configuration-of-the-ace-potential">Define and specify the configuration of the ACE potential</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/5-fitting.html#linear-fitting">Linear fitting</a></p></li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/5-fitting.html#workflow-for-fitting-and-validating-the-potential">Workflow For Fitting and Validating the Potential</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="http://workshop.pyiron.org/NFDI-summerschool-2026/SUMMARY.html">Summary</a></p></li>
+</ul>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<p>The tutorial can be run without any local installation via the Binder badge above. To run it locally instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">nfdi</span><span class="o">-</span><span class="n">summerschool</span><span class="o">-</span><span class="mi">2026</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">nfdi</span><span class="o">-</span><span class="n">summerschool</span><span class="o">-</span><span class="mi">2026</span>
+<span class="n">jupyter</span> <span class="n">lab</span>
+</pre></div>
+</div>
+<p>Then open the notebooks in order, starting with <a class="reference internal" href="0-python.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">0-python.ipynb</span></code></span></a>.</p>
+</section>
+<section id="support-contribution">
+<h2>Support &amp; Contribution<a class="headerlink" href="#support-contribution" title="Link to this heading">#</a></h2>
+<p>This tutorial is developed and maintained on GitHub at <a class="reference external" href="https://github.com/pyiron-workshop/NFDI-summerschool-2026">pyiron-workshop/NFDI-summerschool-2026</a>. Issues and pull requests are welcome.</p>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -372,6 +544,29 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-tutorial">Why this tutorial?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-notebook-should-i-look-at">Which notebook should I look at?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-contribution">Support &amp; Contribution</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Summary &#8212; NFDI Matwerk Summer School</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SUMMARY';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Application: Fit MLIP" href="5-fitting.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">NFDI Matwerk Summer School</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="README.html">
+                    NFDI Matwerk Summer School 2026
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0-python.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1-executorlib.html">executorlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2-pyiron_workflow.html">pyiron_workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3-pyironflow.html">pyironflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4-assyst.html">Application: ASSYST Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5-fitting.html">Application: Fit MLIP</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Summary</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/SUMMARY.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Summary</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-each-notebook-added">What each notebook added</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-should-take-away">What you should take away</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-concept-to-application">From concept to application</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-to-your-research">Transfer to your research</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-go-from-here">Where to go from here</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="summary">
+<h1>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h1>
+<p>Every notebook in this tutorial computed the same quantity — the Young’s modulus of a steel specimen from a tensile test — or, in the last two notebooks, applied the same thinking to a genuine materials-science research pipeline. What changed from notebook to notebook was never <em>what</em> was computed, but <em>how explicitly</em> the procedure that computed it was represented. That progression is the actual subject of this tutorial; pyiron, executorlib and pyironflow are one implementation of it.</p>
+<section id="what-each-notebook-added">
+<h2>What each notebook added<a class="headerlink" href="#what-each-notebook-added" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Notebook</p></th>
+<th class="head"><p>What it introduced</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="0-python.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">0-python.ipynb</span></code></span></a></p></td>
+<td><p>The same analysis as a script, then as functions, then as a module (<code class="docutils literal notranslate"><span class="pre">workflow.py</span></code>). A function already has inputs, an operation and outputs — the raw material a workflow node is built from.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="2-pyiron_workflow.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">2-pyiron_workflow.ipynb</span></code></span></a></p></td>
+<td><p>Those functions wrapped, unchanged, as <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> nodes and wired into an explicit, inspectable dependency graph. Saving that graph as a <a class="reference external" href="https://pythonworkflow.github.io/python-workflow-definition/">Python Workflow Definition</a> makes the <em>procedure</em>, not only the <em>result</em>, findable, accessible, interoperable and reusable.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="1-executorlib.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">1-executorlib.ipynb</span></code></span></a></p></td>
+<td><p>The same functions as asynchronous tasks, submitted to an executor whose dependency graph is implicit in how <code class="docutils literal notranslate"><span class="pre">Future</span></code> objects are passed around. Swapping <code class="docutils literal notranslate"><span class="pre">SingleNodeExecutor</span></code> for <code class="docutils literal notranslate"><span class="pre">SlurmClusterExecutor</span></code> moves the same workflow onto an HPC cluster without changing what it computes — scale is a property of the execution backend, not the workflow.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="3-pyironflow.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">3-pyironflow.ipynb</span></code></span></a></p></td>
+<td><p>The same <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> graph, built, run and reloaded entirely through a drag-and-drop canvas — the same underlying object, a different interface for a different audience.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="4-assyst.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">4-assyst.ipynb</span></code></span></a></p></td>
+<td><p>The same node-and-edge structure applied to a real, multi-stage pipeline: sampling candidate structures, relaxing them, and perturbing them to generate training data for a machine-learning interatomic potential.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="5-fitting.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">5-fitting.ipynb</span></code></span></a></p></td>
+<td><p>The pipeline’s final stage: turning that training data into a validated ACE potential, with the dependency graph making explicit that validation happens on data the potential was never fitted on.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="what-you-should-take-away">
+<h2>What you should take away<a class="headerlink" href="#what-you-should-take-away" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Scientific results are produced by procedures, not by individual software commands.</strong> The number at the end of a notebook is rarely the whole story; the sequence of operations that produced it is.</p></li>
+<li><p><strong>Functions</strong> make individual operations reusable — independently of any workflow tool.</p></li>
+<li><p><strong>Workflows</strong> make the dependencies between operations explicit, instead of leaving them implicit in the order notebook cells happen to have been run.</p></li>
+<li><p><strong>Workflow engines</strong> — code-driven (<code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code>), visual (<code class="docutils literal notranslate"><span class="pre">pyironflow</span></code>) or executor-based (<code class="docutils literal notranslate"><span class="pre">executorlib</span></code>) — build, execute, inspect and scale the same underlying workflow. Which one to reach for is a question of audience and scale, not of which one is “correct”.</p></li>
+<li><p><strong>Provenance</strong>, captured as an explicit, saved workflow rather than left implicit in a notebook, is what makes a result reproducible — and a workflow is not automatically FAIR simply because it was built with one of these tools; it has to actually be described, saved and shared.</p></li>
+<li><p><strong>Interoperable workflow descriptions</strong>, such as the Python Workflow Definition, reduce how much a result depends on any one piece of software, letting a workflow built with one engine run on another.</p></li>
+<li><p><strong>Scale is a consequence of structure.</strong> Once a procedure is an explicit workflow rather than a script tied to one machine and one run, moving it from a laptop to an HPC cluster — or from one calculation to a parameter study of thousands — is a change of execution backend, not a rewrite.</p></li>
+</ul>
+</section>
+<section id="from-concept-to-application">
+<h2>From concept to application<a class="headerlink" href="#from-concept-to-application" title="Link to this heading">#</a></h2>
+<p>The first four notebooks built the same small example four ways to isolate one idea at a time. The last two notebooks dropped the training wheels: <a class="reference internal" href="4-assyst.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">4-assyst.ipynb</span></code></span></a> and <a class="reference internal" href="5-fitting.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">5-fitting.ipynb</span></code></span></a> are a real research workflow, end to end — from deciding which structures to compute, through generating and labelling them, to fitting and validating a machine-learning potential on the result. Every node in those two notebooks is still just a function with explicit inputs and outputs, wired into a graph, exactly as in <a class="reference internal" href="2-pyiron_workflow.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">2-pyiron_workflow.ipynb</span></code></span></a> — nothing new had to be learned to go from a four-step tutorial example to a multi-stage research pipeline.</p>
+</section>
+<section id="transfer-to-your-research">
+<h2>Transfer to your research<a class="headerlink" href="#transfer-to-your-research" title="Link to this heading">#</a></h2>
+<p>Before you close this tutorial, revisit the exercise at the end of <a class="reference internal" href="3-pyironflow.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">3-pyironflow.ipynb</span></code></span></a>: take a procedure from your own work, write down its individual steps, and mark their inputs, outputs, parameters, dependencies and software. That diagram is already a workflow. Whether you go on to build it with pyiron, with a different engine, or on paper for now, the habit of making a procedure explicit — rather than leaving it implicit in a script or a sequence of manual steps — is the transferable skill this tutorial was actually about.</p>
+</section>
+<section id="where-to-go-from-here">
+<h2>Where to go from here<a class="headerlink" href="#where-to-go-from-here" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pyiron-workflow.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> documentation</a></p></li>
+<li><p><a class="reference external" href="https://executorlib.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">executorlib</span></code> documentation</a></p></li>
+<li><p><a class="reference external" href="https://github.com/pyiron/pyironFlow"><code class="docutils literal notranslate"><span class="pre">pyironflow</span></code> repository</a></p></li>
+<li><p><a class="reference external" href="https://pythonworkflow.github.io/python-workflow-definition/">Python Workflow Definition</a></p></li>
+<li><p><a class="reference external" href="https://pyiron.org/">pyiron project</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5-fitting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Application: Fit MLIP</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-each-notebook-added">What each notebook added</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-should-take-away">What you should take away</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-concept-to-application">From concept to application</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-to-your-research">Transfer to your research</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-go-from-here">Where to go from here</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jan Janssen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

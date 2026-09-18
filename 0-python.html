@@ -169,6 +169,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3-pyironflow.html">pyironflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4-assyst.html">Application: ASSYST Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5-fitting.html">Application: Fit MLIP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SUMMARY.html">Summary</a></li>
 </ul>
 
     </div>
@@ -348,6 +349,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-materials-science-challenge">The materials science challenge</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-analysis-to-workflow">From analysis to workflow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-functions">Python Functions</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#script">Script</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
@@ -390,6 +392,19 @@
 <ul class="simple">
 <li><p>Schilling, M., Glaubitz, S., Matzak, K., Rehmer, B., &amp; Skrotzki, B. (2022). Full dataset of several mechanical tests on an S355 steel sheet as reference data for digital representations (1.0.0) [Data set]. Zenodo. <a class="reference external" href="https://doi.org/10.5281/zenodo.6778336">https://doi.org/10.5281/zenodo.6778336</a></p></li>
 </ul>
+</section>
+<section id="learning-objectives">
+<h2>Learning objectives<a class="headerlink" href="#learning-objectives" title="Link to this heading">#</a></h2>
+<p>After completing these notebooks, you should be able to:</p>
+<ol class="arabic simple">
+<li><p>decompose a scientific procedure into reusable computational steps;</p></li>
+<li><p>identify the inputs, outputs and dependencies between these steps;</p></li>
+<li><p>represent these dependencies as an explicit, inspectable workflow graph;</p></li>
+<li><p>explain the difference between a plain script and a managed workflow, and when the extra structure pays off;</p></li>
+<li><p>build and run the same workflow programmatically (<code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code>), visually (<code class="docutils literal notranslate"><span class="pre">pyironflow</span></code>) and at scale (<code class="docutils literal notranslate"><span class="pre">executorlib</span></code>);</p></li>
+<li><p>explain how saving a workflow — not just its result — supports reproducible, FAIR research;</p></li>
+<li><p>distinguish the scientific workflow itself from the software used to execute it.</p></li>
+</ol>
 </section>
 <section id="python-functions">
 <h2>Python Functions<a class="headerlink" href="#python-functions" title="Link to this heading">#</a></h2>
@@ -449,10 +464,11 @@
 <img alt="_images/1558b04a4d9fe764fc80b1d40762c6bec03304621a9e9b2cd83b16765291f654.png" src="_images/1558b04a4d9fe764fc80b1d40762c6bec03304621a9e9b2cd83b16765291f654.png" />
 </div>
 </div>
+<p><strong>Reproducibility question:</strong> Imagine you were handed only the final number above, <code class="docutils literal notranslate"><span class="pre">youngs_modulus</span> <span class="pre">≈</span> <span class="pre">175</span> <span class="pre">GPa</span></code>. What would you need in order to reproduce it — the raw data, the code, both? Keep your list in mind; it reappears throughout this tutorial.</p>
 </section>
 <section id="functions">
 <h3>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h3>
-<p>Splitting the script into small functions — <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>, <code class="docutils literal notranslate"><span class="pre">convert_load_to_stress</span></code>, <code class="docutils literal notranslate"><span class="pre">calculate_youngs_modulus</span></code>, <code class="docutils literal notranslate"><span class="pre">plot</span></code> — makes each step independently reusable and testable. Just as importantly, a function with well-defined inputs and outputs is precisely what a workflow <strong>node</strong> is: in the next three notebooks these same functions are wrapped, unchanged, as nodes of a <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> graph — the same graph later driven either from code or through <code class="docutils literal notranslate"><span class="pre">pyironflow</span></code>’s visual interface — and as tasks submitted to an <code class="docutils literal notranslate"><span class="pre">executorlib</span></code> executor.</p>
+<p>For a one-off analysis, the script above may be entirely sufficient — there is little point reaching for a workflow engine just to plot one stress-strain curve. But splitting it into small functions — <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>, <code class="docutils literal notranslate"><span class="pre">convert_load_to_stress</span></code>, <code class="docutils literal notranslate"><span class="pre">calculate_youngs_modulus</span></code>, <code class="docutils literal notranslate"><span class="pre">plot</span></code> — starts to pay off as soon as the analysis needs to be reused: for a different dataset, from a different notebook, or as part of something larger. Each function becomes independently reusable and testable, and — just as importantly — a function with well-defined inputs and outputs is precisely what a workflow <strong>node</strong> is: in the next three notebooks these same functions are wrapped, unchanged, as nodes of a <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> graph — the same graph later driven either from code or through <code class="docutils literal notranslate"><span class="pre">pyironflow</span></code>’s visual interface — and as tasks submitted to an <code class="docutils literal notranslate"><span class="pre">executorlib</span></code> executor.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">header</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">decimal</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">","</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">";"</span><span class="p">):</span>
@@ -537,6 +553,7 @@
 <img alt="_images/1558b04a4d9fe764fc80b1d40762c6bec03304621a9e9b2cd83b16765291f654.png" src="_images/1558b04a4d9fe764fc80b1d40762c6bec03304621a9e9b2cd83b16765291f654.png" />
 </div>
 </div>
+<p><strong>Reproducibility question:</strong> <code class="docutils literal notranslate"><span class="pre">calculate_youngs_modulus</span></code> depends on <code class="docutils literal notranslate"><span class="pre">strain_cutoff</span></code>, a parameter chosen somewhat arbitrarily above. Is <code class="docutils literal notranslate"><span class="pre">strain_cutoff</span></code> part of the <em>data</em>, the <em>metadata</em>, or an <em>analysis choice</em>? Try re-running the cells above with a different <code class="docutils literal notranslate"><span class="pre">strain_cutoff</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">0.1</span></code> or <code class="docutils literal notranslate"><span class="pre">0.3</span></code>) — how much does the reported Young’s modulus change? We return to this question as a systematic parameter study later in the tutorial.</p>
 </section>
 <section id="module">
 <h3>Module<a class="headerlink" href="#module" title="Link to this heading">#</a></h3>
@@ -582,6 +599,7 @@
 <img alt="_images/1558b04a4d9fe764fc80b1d40762c6bec03304621a9e9b2cd83b16765291f654.png" src="_images/1558b04a4d9fe764fc80b1d40762c6bec03304621a9e9b2cd83b16765291f654.png" />
 </div>
 </div>
+<p><strong>Reproducibility question:</strong> <code class="docutils literal notranslate"><span class="pre">workflow.py</span></code> can now be imported by anyone, in any notebook or script, without copying code. Is that enough for another researcher to reproduce <code class="docutils literal notranslate"><span class="pre">youngs_modulus</span></code> above? What is still missing — the specific <code class="docutils literal notranslate"><span class="pre">area</span></code>, <code class="docutils literal notranslate"><span class="pre">strain_cutoff</span></code> and <code class="docutils literal notranslate"><span class="pre">filename</span></code> used, and the exact sequence in which the functions were called? Making that missing piece explicit is exactly what a <strong>workflow</strong> adds, and is the subject of the rest of this tutorial.</p>
 </section>
 <section id="next-steps">
 <h3>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h3>
@@ -659,6 +677,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-materials-science-challenge">The materials science challenge</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-analysis-to-workflow">From analysis to workflow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-functions">Python Functions</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#script">Script</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>

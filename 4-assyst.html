@@ -169,6 +169,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3-pyironflow.html">pyironflow</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Application: ASSYST Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5-fitting.html">Application: Fit MLIP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SUMMARY.html">Summary</a></li>
 </ul>
 
     </div>
@@ -353,8 +354,14 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#literature">Literature</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spacegroup-sampling">Spacegroup Sampling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-workflow-for-a-small-structure-set">Full Workflow for a Small Structure Set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spacegroup-sampling">Spacegroup Sampling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-make-spg-builds-the-workflow">How <code class="docutils literal notranslate"><span class="pre">make_spg</span></code> builds the workflow</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-workflow-for-a-small-structure-set">Full Workflow for a Small Structure Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-make-assyst-extends-make-spg">How <code class="docutils literal notranslate"><span class="pre">make_assyst</span></code> extends <code class="docutils literal notranslate"><span class="pre">make_spg</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precomputed-full-workflow-with-large-structure-set">Precomputed Full Workflow with Large Structure Set</a></li>
 </ul>
             </nav>
@@ -369,6 +376,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="application-assyst-method">
 <h1>Application: ASSYST Method<a class="headerlink" href="#application-assyst-method" title="Link to this heading">#</a></h1>
+<p>This notebook applies the workflow concepts from the previous notebooks — nodes, explicit dependency graphs, <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> and <code class="docutils literal notranslate"><span class="pre">pyironflow</span></code> — to a real materials-science research method: automatically generating training data for machine-learning interatomic potentials.</p>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -444,6 +452,16 @@ The key idea is to use small structures to automatically explore structurally an
 </div>
 </div>
 </div>
+<section id="how-make-spg-builds-the-workflow">
+<h3>How <code class="docutils literal notranslate"><span class="pre">make_spg</span></code> builds the workflow<a class="headerlink" href="#how-make-spg-builds-the-workflow" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">make_spg</span></code> constructs exactly the kind of <code class="docutils literal notranslate"><span class="pre">pyiron_workflow</span></code> graph seen in the earlier notebooks — assigning <code class="docutils literal notranslate"><span class="pre">wf.&lt;name&gt;</span> <span class="pre">=</span> <span class="pre">node(...)</span></code> both adds a node and wires its inputs — just with nodes from the <code class="docutils literal notranslate"><span class="pre">pyiron_nodes</span></code> node library instead of <code class="docutils literal notranslate"><span class="pre">workflow.py</span></code>:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ElementInput(element,</span> <span class="pre">min_atoms,</span> <span class="pre">max_atoms)</span></code></strong> — one node per chemical element, defining how many atoms of it are allowed in a sampled structure.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">Multiply(stoi_1,</span> <span class="pre">stoi_2)</span></code></strong> — combines two elements’ constraints into a joint stoichiometry space; chaining it across all elements is what lets <code class="docutils literal notranslate"><span class="pre">make_spg</span></code> handle an arbitrary number of elements (<code class="docutils literal notranslate"><span class="pre">*elements</span></code>) with a fixed set of node types.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">SpaceGroupSampling(elements=...,</span> <span class="pre">max_atoms=...,</span> <span class="pre">max_structures=...)</span></code></strong> — the actual sampling step: draws random structures across the 230 crystallographic space groups, respecting the stoichiometry space and the <code class="docutils literal notranslate"><span class="pre">max_atoms</span></code>/<code class="docutils literal notranslate"><span class="pre">max_structures</span></code> limits. This produces the blue points in the potential-energy-surface sketch above.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">StoichiometryTable</span></code></strong>, <strong><code class="docutils literal notranslate"><span class="pre">PlotSpaceGroups</span></code></strong>, <strong><code class="docutils literal notranslate"><span class="pre">PlotEnergyVolumeHistogram</span></code></strong> — read-only nodes that tabulate and visualize the structures <code class="docutils literal notranslate"><span class="pre">SpaceGroupSampling</span></code> produced, without changing them.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and <code class="docutils literal notranslate"><span class="pre">setattr(wf,</span> <span class="pre">...)</span></code> calls only exist to build this graph programmatically for an arbitrary list of elements — the resulting graph is the same one you build directly in the visual editor for the two-element (<code class="docutils literal notranslate"><span class="pre">Mg</span></code>, <code class="docutils literal notranslate"><span class="pre">Ca</span></code>) task above.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_spg</span><span class="p">(</span>
@@ -510,6 +528,7 @@ The key idea is to use small structures to automatically explore structurally an
 </div>
 <p><img alt="Mg–Ca phase behavior" src="_images/spacegroup_example.png" /></p>
 </section>
+</section>
 <section id="full-workflow-for-a-small-structure-set">
 <h2>Full Workflow for a Small Structure Set<a class="headerlink" href="#full-workflow-for-a-small-structure-set" title="Link to this heading">#</a></h2>
 <p>This demonstration uses the GRACE universal force fields for the relaxation steps. Usually, we would run them in low-convergence DFT and then calculate each structure with high-convergence DFT.</p>
@@ -525,7 +544,18 @@ The key idea is to use small structures to automatically explore structurally an
 <p><strong>Hint:</strong> Check the workflow diagram to see how can you connect the new nodes.</p>
 <p><strong>Optional:</strong> you can tick the option to save the dataframe into a file by providing a path or a name of <code class="docutils literal notranslate"><span class="pre">filename</span></code>.</p>
 <p>Check <code class="docutils literal notranslate"><span class="pre">atomistic</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">structure</span></code> for relevant structure nodes and <code class="docutils literal notranslate"><span class="pre">atomistic</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">engine</span></code> for <code class="docutils literal notranslate"><span class="pre">GRACE</span></code> engine.</p>
-</div><div class="cell docutils container">
+</div><section id="how-make-assyst-extends-make-spg">
+<h3>How <code class="docutils literal notranslate"><span class="pre">make_assyst</span></code> extends <code class="docutils literal notranslate"><span class="pre">make_spg</span></code><a class="headerlink" href="#how-make-assyst-extends-make-spg" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">make_assyst</span></code> builds on exactly the same <code class="docutils literal notranslate"><span class="pre">SpaceGroupSampling</span></code> step as <code class="docutils literal notranslate"><span class="pre">make_spg</span></code>, then adds the remaining stages of the ASSYST pipeline sketched in the Background section above:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">GRACE()</span></code></strong> — a universal machine-learned force field, used here as a fast, approximate energy/force engine so the full pipeline can be demonstrated interactively. In production this would be a DFT engine instead; the workflow graph would not need to change, only this one node.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">RelaxLoop(mode=&quot;volume&quot;,</span> <span class="pre">...)</span></code></strong> — relaxes only the cell volume of each sampled structure, moving the blue points closer to the potential-energy-surface minima (orange points).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">RelaxLoop(mode=&quot;full&quot;,</span> <span class="pre">...)</span></code></strong> — relaxes both atomic positions and cell volume, reaching the minima themselves (green points).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">RattleLoop</span></code></strong> / <strong><code class="docutils literal notranslate"><span class="pre">StretchLoop</span></code></strong> — perturb the fully-relaxed structures by randomly displacing atoms (<code class="docutils literal notranslate"><span class="pre">Rattle</span></code>, covering phonon-like distortions) or applying shear/hydrostatic strain (<code class="docutils literal notranslate"><span class="pre">Stretch</span></code>, covering structural deformations), generating the higher-energy purple points that make the training data transferable beyond equilibrium structures.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">CombineStructures(spacegroups=...,</span> <span class="pre">volume_relax=...,</span> <span class="pre">...)</span></code></strong> — merges the structure dataframes from every stage above into a single dataset, and can optionally write it to <code class="docutils literal notranslate"><span class="pre">filename</span></code>.</p></li>
+</ul>
+<p>Each stage’s output (e.g. <code class="docutils literal notranslate"><span class="pre">full_relax</span></code>, a <code class="docutils literal notranslate"><span class="pre">RelaxLoop</span></code> node) is passed directly as another node’s input (e.g. <code class="docutils literal notranslate"><span class="pre">df_structures=full_relax</span></code> for <code class="docutils literal notranslate"><span class="pre">RattleLoop</span></code>) — the same dependency wiring used throughout this tutorial, just applied to a real, multi-stage research workflow instead of a four-step example.</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_assyst</span><span class="p">(</span>
         <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">elements</span><span class="p">,</span>
@@ -630,10 +660,12 @@ The key idea is to use small structures to automatically explore structurally an
 </div>
 <p><img alt="Mg–Ca phase behavior" src="_images/assyst_example.png" /></p>
 </section>
+</section>
 <section id="precomputed-full-workflow-with-large-structure-set">
 <h2>Precomputed Full Workflow with Large Structure Set<a class="headerlink" href="#precomputed-full-workflow-with-large-structure-set" title="Link to this heading">#</a></h2>
 <p>This is the complete unary <code class="docutils literal notranslate"><span class="pre">Mg</span></code> dataset if we allowed for high-convergence DFT without tight constraints on structure generation which contains ~9k structures.</p>
 <p><img alt="plot" src="_images/mg_dataset.png" /></p>
+<p><strong>Connecting back:</strong> generating ~9k structures at DFT-level accuracy is exactly the kind of workload from <a class="reference internal" href="1-executorlib.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">1-executorlib.ipynb</span></code></span></a> that no longer fits on a laptop. The workflow graph itself does not change — the same <code class="docutils literal notranslate"><span class="pre">SpaceGroupSampling</span></code>, <code class="docutils literal notranslate"><span class="pre">RelaxLoop</span></code>, <code class="docutils literal notranslate"><span class="pre">RattleLoop</span></code> and <code class="docutils literal notranslate"><span class="pre">StretchLoop</span></code> nodes above would simply be submitted to an HPC cluster instead of run locally.</p>
 </section>
 </section>
 
@@ -711,8 +743,14 @@ The key idea is to use small structures to automatically explore structurally an
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#literature">Literature</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spacegroup-sampling">Spacegroup Sampling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-workflow-for-a-small-structure-set">Full Workflow for a Small Structure Set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spacegroup-sampling">Spacegroup Sampling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-make-spg-builds-the-workflow">How <code class="docutils literal notranslate"><span class="pre">make_spg</span></code> builds the workflow</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-workflow-for-a-small-structure-set">Full Workflow for a Small Structure Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-make-assyst-extends-make-spg">How <code class="docutils literal notranslate"><span class="pre">make_assyst</span></code> extends <code class="docutils literal notranslate"><span class="pre">make_spg</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precomputed-full-workflow-with-large-structure-set">Precomputed Full Workflow with Large Structure Set</a></li>
 </ul>
   </nav></div>

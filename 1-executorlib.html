@@ -169,6 +169,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3-pyironflow.html">pyironflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4-assyst.html">Application: ASSYST Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5-fitting.html">Application: Fit MLIP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SUMMARY.html">Summary</a></li>
 </ul>
 
     </div>
@@ -503,7 +504,8 @@
 </section>
 <section id="high-performance-computing">
 <h2>High Performance Computing<a class="headerlink" href="#high-performance-computing" title="Link to this heading">#</a></h2>
-<p>Swapping <code class="docutils literal notranslate"><span class="pre">SingleNodeExecutor</span></code> for <code class="docutils literal notranslate"><span class="pre">SlurmClusterExecutor</span></code> (or a flux equivalent) submits the exact same tasks as jobs to an HPC scheduler instead of running them locally — the workflow code itself does not change. The cell below is kept as a raw, non-executed cell, since running it requires a SLURM cluster to submit to.</p>
+<p>A single tensile-test analysis runs comfortably on a laptop. But the same workflow becomes interesting at scale: fitting a Young’s modulus for one specimen is easy, doing it for a thousand specimens — or coupling this analysis into a larger simulation campaign — is not, once a laptop is no longer fast enough. That progression, from <em>one operation</em> to <em>many, at scale</em>, is exactly what motivates handing a workflow to a scheduler instead of running it locally.</p>
+<p><code class="docutils literal notranslate"><span class="pre">executorlib</span></code> makes this a matter of <em>where</em> the workflow runs, not <em>what</em> it computes: swapping <code class="docutils literal notranslate"><span class="pre">SingleNodeExecutor</span></code> for <code class="docutils literal notranslate"><span class="pre">SlurmClusterExecutor</span></code> (or a flux equivalent) submits the exact same tasks as jobs to an HPC scheduler instead of running them locally — the workflow code itself does not change. This separation — the scientific workflow stays the same, only the execution backend changes — is one of the main practical payoffs of describing a procedure as an explicit workflow rather than a script tied to one machine. The cell below is kept as a raw, non-executed cell, since running it requires a SLURM cluster to submit to.</p>
 </section>
 <section id="python-workflow-definition">
 <h2>Python Workflow Definition<a class="headerlink" href="#python-workflow-definition" title="Link to this heading">#</a></h2>
@@ -660,6 +662,7 @@
 </div>
 </div>
 </div>
+<p><strong>Reproducibility question:</strong> <code class="docutils literal notranslate"><span class="pre">workflow.json</span></code> records the functions, parameters and edges above, but not the result itself. Could another researcher — with <code class="docutils literal notranslate"><span class="pre">workflow.py</span></code> and <code class="docutils literal notranslate"><span class="pre">workflow.json</span></code>, but no access to this notebook — reproduce <code class="docutils literal notranslate"><span class="pre">youngs_modulus</span></code>? What would they still need (the dataset, the software environment) that the JSON file does not capture?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">python_workflow_definition.executorlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_workflow_json</span>
