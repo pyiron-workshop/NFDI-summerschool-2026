@@ -382,9 +382,8 @@
 <section id="loading-and-analyzing-the-dataset">
 <h2>Loading and Analyzing the dataset<a class="headerlink" href="#loading-and-analyzing-the-dataset" title="Link to this heading">#</a></h2>
 <p>Recalling the workflow, we are in the first essential step of loading the training dataset</p>
-<div style="text-align: center;">
-    <img src="images/highlighted_workflow.png" alt="Fitting workflow" width="70%">
-</div><p>As a first step, we load the dataset by specifying the `file_path’. This dataset has been generated for the CaMg system using the ASSYST approach discussed in the previous section <a class="reference internal" href="4-assyst.html"><span class="std std-doc">4-assyst.ipynb</span></a>.</p>
+<p><img alt="Fitting workflow" src="_images/highlighted_workflow.png" /></p>
+<p>As a first step, we load the dataset by specifying the `file_path’. This dataset has been generated for the CaMg system using the ASSYST approach discussed in the previous section <a class="reference internal" href="4-assyst.html"><span class="std std-doc">4-assyst.ipynb</span></a>.</p>
 </section>
 <section id="split-the-dataset-into-training-and-test">
 <h2>Split the dataset into training and test<a class="headerlink" href="#split-the-dataset-into-training-and-test" title="Link to this heading">#</a></h2>
@@ -445,9 +444,7 @@ $<span class="math notranslate nohighlight">\(E_i = 1.0 * \varphi(1)^1 + 1.0 * \
 <li><p>(b) Power-law scaled Chebyshev polynomials (λ = 2.0)</p></li>
 <li><p>(c) Simplified spherical Bessel functions</p></li>
 </ul>
-<div style="text-align: center;">
-  <img src="images/radial-functions-low.png" width="40%">
-</div>
+<p><img alt="Function" src="_images/radial-functions-low.png" /></p>
 <p>Radial functions specification have to be provided for <code class="docutils literal notranslate"><span class="pre">ALL</span></code> species pairs (i.e. Al-Al, Al-Li, Li-Al, Li-Li):</p>
 <ul class="simple">
 <li><p>based on the Simplified Bessel function</p></li>
@@ -487,9 +484,8 @@ $<span class="math notranslate nohighlight">\(E_i = 1.0 * \varphi(1)^1 + 1.0 * \
 <p><strong>Hint</strong>: You can find the relevant nodes to perform the fitting in <code class="docutils literal notranslate"><span class="pre">atomistic</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">fitting</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">ace</span></code> and for plotting in <code class="docutils literal notranslate"><span class="pre">atomistic</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">fitting</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">plot</span></code></p>
 <p>Exercise: change the <code class="docutils literal notranslate"><span class="pre">number_of_functions_per_element</span></code> to a higher value (i.e., 50) and check the fitting curves. Did the fit get better or worse? why?</p>
 <p><strong>Note:</strong> You can save the potential under a new name using the <code class="docutils literal notranslate"><span class="pre">filename</span></code> input in <code class="docutils literal notranslate"><span class="pre">save_potential</span></code> node.</p>
-</div><div style="text-align: center;">
-    <img src="images/validation_schematic.png" width="60%">
-</div><div class="cell docutils container">
+</div><p><img alt="validation" src="_images/validation_schematic.png" /></p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyiron_workflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Workflow</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyironflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">PyironFlow</span>

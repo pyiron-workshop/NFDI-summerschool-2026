@@ -381,28 +381,20 @@
 The key idea is to use small structures to automatically explore structurally and chemically diverse atomic environments and provide training data around the energetically most favorable ones.</p>
 <section id="workflow-overview">
 <h3>Workflow Overview<a class="headerlink" href="#workflow-overview" title="Link to this heading">#</a></h3>
-<div style="text-align: center;">
-  <img src="images/AssystSchematicModified.png" alt="ASSYST workflow schematic" width="600"/>
-</div>
+<p><img alt="ASSYST workflow schematic" src="_images/AssystSchematicModified.png" /></p>
 </section>
 <section id="covering-potential-energy-surface">
 <h3>Covering Potential Energy Surface<a class="headerlink" href="#covering-potential-energy-surface" title="Link to this heading">#</a></h3>
-<div style="text-align: center;">
-  <img src="images/PES_surface_modified.png" alt="ASSYST workflow schematic" width="800"/>
-</div>
+<p><img alt="ASSYST workflow schematic" src="_images/PES_surface_modified.png" /></p>
 <p>Consider the simplified one-dimensional potential energy surface (PES) vs the configuration space with a global minimum and multiple local minima. Starting with the structures generated from spacegroup sampling (<span style="color: blue;">blue points</span>), they fall onto different locations on the PES curve. To cover the different configuration space, we can do a volume relaxation (<span style="color: orange;">orange points</span>) that covers points closer to the minima. Then, to get to the minima we can do a full relaxation with atoms and volume (<span style="color: green;">green points</span>). However, to cover the space of higher energy range, we can stretch the structures by applying different strains (e.g., shear, hydrostatic) which represents structural deformations or rattle the atomic positions in the structure (<span style="color: purple;">purple points</span>) which would cover the phonon properties.</p>
 <p>By sampling the space even more, we improve the description of the potential energy surface, hence the transferability of the potentials trained on such datasets.</p>
 </section>
 <section id="transferability">
 <h3>Transferability<a class="headerlink" href="#transferability" title="Link to this heading">#</a></h3>
 <p>ASSYST trained potentials describe also structures that they are not directly trained on, such as point and planar defects.</p>
-<div style="text-align: center;">
-  <img src="images/Fig8_MTP24_2d0_8d2_DefectsManual.png" alt="Defects transferability" width="800"/>
-</div>
+<p><img alt="Defects transferability" src="_images/Fig8_MTP24_2d0_8d2_DefectsManual.png" /></p>
 <p>Liquid state is also well described and potentials are stable for long running thermodynamic integrations.</p>
-<div style="text-align: center;">
-  <img src="images/Fig11_MgCa.png" alt="Mg–Ca phase behavior" width="800"/>
-</div>
+<p><img alt="Mg–Ca phase behavior" src="_images/Fig11_MgCa.png" /></p>
 <p>This phase diagram is our goal for today!</p>
 </section>
 <section id="literature">
@@ -417,9 +409,8 @@ The key idea is to use small structures to automatically explore structurally an
 <h2>Spacegroup Sampling<a class="headerlink" href="#spacegroup-sampling" title="Link to this heading">#</a></h2>
 <p>The first step in the ASSYST workflow is to decide which chemical space to cover and how densely. Increasing the new number of total atoms allows you to generate more and more complex structures and also sample the chemical space more densely.</p>
 <p>This example is for ‘Mg’ unary system, where we sampled 1-10 Atoms in the structures.</p>
-<div style="text-align: center;">
-  <img src="images/Mg_spacegroup.png" alt="Mg–Ca phase behavior" width="800"/>
-</div><div class="admonition note" name="html-admonition" style="background: #FFEDD1; padding: 10px">
+<p><img alt="Mg–Ca phase behavior" src="_images/Mg_spacegroup.png" /></p>
+<div class="admonition note" name="html-admonition" style="background: #FFEDD1; padding: 10px">
 <p class="title"><b>Task</b></p>
 <p>Build a small workflow that creates a dataframe table of spacegroup sampling Mg and Ca. Consider the following steps,</p>
 <ol class="arabic simple">
@@ -515,7 +506,7 @@ The key idea is to use small structures to automatically explore structurally an
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "31082f7600b341cbbd75e8c4a5757d54"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "31082f7600b341cbbd75e8c4a5757d54", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div style="text-align: center;">
   <img src="images/spacegroup_example.png" alt="Mg–Ca phase behavior" width="100%"/>
@@ -636,7 +627,7 @@ The key idea is to use small structures to automatically explore structurally an
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "fffb4262ccb6415ebc57e83cde1268ab"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fffb4262ccb6415ebc57e83cde1268ab", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div style="text-align: center;">
   <img src="images/assyst_example.png" alt="Mg–Ca phase behavior" width="100%"/>
@@ -644,9 +635,8 @@ The key idea is to use small structures to automatically explore structurally an
 <section id="precomputed-full-workflow-with-large-structure-set">
 <h2>Precomputed Full Workflow with Large Structure Set<a class="headerlink" href="#precomputed-full-workflow-with-large-structure-set" title="Link to this heading">#</a></h2>
 <p>This is the complete unary <code class="docutils literal notranslate"><span class="pre">Mg</span></code> dataset if we allowed for high-convergence DFT without tight constraints on structure generation which contains ~9k structures.</p>
-<div style="text-align: center;">
-  <img src="images/mg_dataset.png" alt="" width="100%"/>
-</div></section>
+<p><img alt="plot" src="_images/mg_dataset.png" /></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
