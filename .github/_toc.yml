@@ -5,3 +5,5 @@ chapters:
 - file: 1-executorlib.ipynb
 - file: 2-pyiron_workflow.ipynb
 - file: 3-pyironflow.ipynb
+- file: 4-assyst.ipynb
+- file: 5-fitting.ipynb
